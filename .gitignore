@@ -239,6 +239,7 @@ cmake-build-*/
 .idea/sonarlint
 
 gradle.properties
+/gradle
 
 
 # End of https://www.gitignore.io/api/android,intellij,androidstudio
