@@ -12,4 +12,16 @@ public class IngredientModel {
 
     @SerializedName("ingredient")
     private String name;
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

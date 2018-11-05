@@ -19,4 +19,28 @@ public class StepModel {
 
     @SerializedName("thumbnailURL")
     private String thumbnailURL;
+
+    public int getRowId() {
+        return rowId;
+    }
+
+    public int getStepId() {
+        return stepId;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getVideoURL() {
+        return videoURL;
+    }
+
+    public String getThumbnailURL() {
+        return thumbnailURL;
+    }
 }

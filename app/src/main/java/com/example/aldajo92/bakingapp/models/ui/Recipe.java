@@ -3,37 +3,27 @@ package com.example.aldajo92.bakingapp.models.ui;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.example.aldajo92.bakingapp.models.network.IngredientModel;
+import com.example.aldajo92.bakingapp.models.network.RecipeModel;
+import com.example.aldajo92.bakingapp.models.network.StepModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe implements Parcelable {
 
     private int rowId;
 
-    @SerializedName("id")
-    @Expose
     private int recipeId;
 
-    @SerializedName("name")
-    @Expose
     private String name;
 
-    @SerializedName("ingredients")
-    @Expose
-    private List<Ingredient> ingredients = null;
+    private List<Ingredient> ingredients = new ArrayList<>();
 
-    @SerializedName("steps")
-    @Expose
-    private List<Step> steps = null;
+    private List<Step> steps = new ArrayList<>();
 
-    @SerializedName("servings")
-    @Expose
     private int servings;
 
-    @SerializedName("image")
-    @Expose
     private String image;
 
     private Recipe(Parcel in) {
@@ -47,6 +37,22 @@ public class Recipe implements Parcelable {
 
     public Recipe() {
 
+    }
+
+    public Recipe(RecipeModel recipeModel) {
+        rowId = recipeModel.getRowId();
+        recipeId = recipeModel.getRecipeId();
+        name = recipeModel.getName();
+        for (IngredientModel ingredient :
+                recipeModel.getIngredients()) {
+            ingredients.add(new Ingredient(ingredient));
+        }
+        for (StepModel step :
+                recipeModel.getSteps()) {
+            steps.add(new Step(step));
+        }
+        servings = recipeModel.getServings();
+        image = recipeModel.getImage();
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {

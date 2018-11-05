@@ -3,35 +3,27 @@ package com.example.aldajo92.bakingapp.models.ui;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.aldajo92.bakingapp.models.network.StepModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-/**
- * Created by Gilang Kusuma Jati on 8/27/17.
- */
 
 public class Step implements Parcelable {
 
     private int rowId;
 
     @SerializedName("id")
-    @Expose
     private int stepId;
 
     @SerializedName("shortDescription")
-    @Expose
     private String shortDescription;
 
     @SerializedName("description")
-    @Expose
     private String description;
 
     @SerializedName("videoURL")
-    @Expose
     private String videoURL;
 
     @SerializedName("thumbnailURL")
-    @Expose
     private String thumbnailURL;
 
     protected Step(Parcel in) {
@@ -44,6 +36,15 @@ public class Step implements Parcelable {
 
     public Step() {
 
+    }
+
+    public Step(StepModel stepModel){
+        rowId = stepModel.getRowId();
+        stepId = stepModel.getStepId();
+        shortDescription = stepModel.getShortDescription();
+        description = stepModel.getDescription();
+        videoURL = stepModel.getVideoURL();
+        thumbnailURL = stepModel.getThumbnailURL();
     }
 
     public static final Creator<Step> CREATOR = new Creator<Step>() {

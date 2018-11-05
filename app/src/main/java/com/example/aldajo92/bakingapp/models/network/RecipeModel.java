@@ -24,4 +24,32 @@ public class RecipeModel {
 
     @SerializedName("image")
     private String image;
+
+    public int getRowId() {
+        return rowId;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<IngredientModel> getIngredients() {
+        return ingredients;
+    }
+
+    public List<StepModel> getSteps() {
+        return steps;
+    }
+
+    public int getServings() {
+        return servings;
+    }
+
+    public String getImage() {
+        return image;
+    }
 }

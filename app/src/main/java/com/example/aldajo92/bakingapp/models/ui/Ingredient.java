@@ -3,6 +3,7 @@ package com.example.aldajo92.bakingapp.models.ui;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.aldajo92.bakingapp.models.network.IngredientModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,7 +21,14 @@ public class Ingredient implements Parcelable {
         name = in.readString();
     }
 
-    public Ingredient(){}
+    public Ingredient() {
+    }
+
+    public Ingredient(IngredientModel ingredientModel) {
+        quantity = ingredientModel.getQuantity();
+        measure = ingredientModel.getMeasure();
+        name = ingredientModel.getName();
+    }
 
     public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
         @Override

@@ -1,20 +1,27 @@
-package com.example.aldajo92.bakingapp;
+package com.example.aldajo92.bakingapp.main;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.aldajo92.bakingapp.adapter.RecipeAdapter;
+import com.example.aldajo92.bakingapp.R;
+import com.example.aldajo92.bakingapp.adapter.recipe.RecipeAdapter;
+import com.example.aldajo92.bakingapp.adapter.recipe.RecipeListItemClickListener;
+import com.example.aldajo92.bakingapp.detail.DetailActivity;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
-import com.example.aldajo92.bakingapp.viewModels.MainViewModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements RecipeAdapter.RecipeListItemClickListener {
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_RECIPE;
+
+public class MainActivity extends AppCompatActivity implements RecipeListItemClickListener, MainViewLister {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -36,7 +43,12 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
         ButterKnife.bind(this);
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.setMainViewLister(this);
 
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(this, getColumn());
         recipeAdapter = new RecipeAdapter(this);
         recyclerView.setAdapter(recipeAdapter);
@@ -56,6 +68,18 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
 
     @Override
     public void onRecipeItemClick(Recipe recipe) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(EXTRA_RECIPE, recipe);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRecipes(List<Recipe> recipeList) {
+        recipeAdapter.setItems(recipeList);
+    }
+
+    @Override
+    public void showError(String message) {
 
     }
 }
