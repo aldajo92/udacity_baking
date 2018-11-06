@@ -1,12 +1,11 @@
 package com.example.aldajo92.bakingapp.detail;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.detail.fragments.RecipeDetailFragment;
@@ -15,21 +14,20 @@ import com.example.aldajo92.bakingapp.models.ui.Recipe;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.aldajo92.bakingapp.Constants.EXTRA_LIST_INDEX;
 import static com.example.aldajo92.bakingapp.Constants.EXTRA_RECIPE;
 
 public class DetailActivity extends AppCompatActivity {
 
     @Nullable
-    @BindView(R.id.layout_root)
-    LinearLayout layoutRoot;
+    @BindView(R.id.frame_step_container)
+    FrameLayout frameStep;
 
-    @BindView(R.id.container)
+    @BindView(R.id.frame_container)
     FrameLayout container;
 
-    private boolean isTwoPane;
     private Recipe recipe;
-    private int selectedStepIndex;
+
+    private boolean isTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,35 +35,35 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        if (intent != null) {
-            if (intent.hasExtra(EXTRA_RECIPE)) {
-                recipe = intent.getParcelableExtra(EXTRA_RECIPE);
-                // TODO: WHAT FUCKING IS THIS?
-                selectedStepIndex = savedInstanceState != null && savedInstanceState.containsKey(EXTRA_LIST_INDEX) ?
-                        savedInstanceState.getInt(EXTRA_LIST_INDEX) : 0;
-            }
-        } else if (savedInstanceState != null) {
-            recipe = savedInstanceState.getParcelable(EXTRA_RECIPE);
-            selectedStepIndex = savedInstanceState.getInt(EXTRA_LIST_INDEX);
+        if (getIntent().hasExtra(EXTRA_RECIPE)) {
+            recipe = getIntent().getParcelableExtra(EXTRA_RECIPE);
+            replaceRecipeDetailFragment(recipe);
         }
 
-        if (recipe != null) {
-            if (savedInstanceState == null) {
-                replaceRecipeDetailFragment(recipe);
-            }
+        isTablet = frameStep != null;
+        Toast.makeText(this, "Is tablet? = " + isTablet, Toast.LENGTH_LONG).show();
 
+//        else if (savedInstanceState != null) {
+//            recipe = savedInstanceState.getParcelable(EXTRA_RECIPE);
+//            selectedStepIndex = savedInstanceState.getInt(EXTRA_LIST_INDEX);
+//        }
+
+//        if (recipe != null) {
+//            if (savedInstanceState == null) {
+//                replaceRecipeDetailFragment(recipe);
+//            }
+//
 //            if (findViewById(R.id.recipe_step_content_view) != null) {
 //                isTwoPane = true;
 //                if (savedInstanceState == null) {
-//                    replaceRecipeStepFragment(selectedStepIndex);
+////                    replaceRecipeStepFragment(selectedStepIndex);
 //                }
 //            } else {
 //                isTwoPane = false;
 //            }
-
-            setTitle(recipe.getName());
-        }
+//
+//            setTitle(recipe.getName());
+//        }
     }
 
     private void replaceRecipeDetailFragment(Recipe recipe) {
@@ -74,7 +72,7 @@ public class DetailActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, recipeDetailFragment)
+                .replace(R.id.frame_container, recipeDetailFragment)
                 .commit();
     }
 
