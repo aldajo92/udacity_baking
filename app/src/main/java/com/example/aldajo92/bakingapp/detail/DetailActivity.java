@@ -2,7 +2,10 @@ package com.example.aldajo92.bakingapp.detail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
@@ -21,7 +24,7 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
 
     @Nullable
     @BindView(R.id.frame_step_container)
-    FrameLayout frameStep;
+    ViewPager viewPagerSteps;
 
     @BindView(R.id.frame_container)
     FrameLayout container;
@@ -31,6 +34,8 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
     private boolean isTablet;
 
     private int selectedStepIndex;
+
+    private FragmentPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +48,14 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
             replaceRecipeDetailFragment(recipe);
         }
 
-        isTablet = frameStep != null;
+        isTablet = viewPagerSteps != null;
 
         if (savedInstanceState != null) {
 //            recipe = savedInstanceState.getParcelable(EXTRA_RECIPE);
 //            selectedStepIndex = savedInstanceState.getInt(EXTRA_LIST_INDEX);
         }
+
+        initViewPager();
 
 //        if (recipe != null) {
 //            if (savedInstanceState == null) {
@@ -68,6 +75,22 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
 //        }
     }
 
+    private void initViewPager() {
+        pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return replaceRecipeStepFragment(position);
+            }
+
+            @Override
+            public int getCount() {
+                return recipe.getSteps().size();
+            }
+        };
+        viewPagerSteps.setAdapter(pagerAdapter);
+
+    }
+
     private void replaceRecipeDetailFragment(Recipe recipe) {
         RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment(this);
         recipeDetailFragment.setRecipe(recipe);
@@ -78,17 +101,18 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
                 .commit();
     }
 
-    private void replaceRecipeStepFragment(int position) {
+    private RecipeStepFragment replaceRecipeStepFragment(int position) {
         RecipeStepFragment recipeStepFragment = new RecipeStepFragment();
         recipeStepFragment.setListIndex(position);
         recipeStepFragment.setStep(recipe.getSteps().get(position));
         recipeStepFragment.isPrevEnabled(position > 0);
         recipeStepFragment.isNextEnabled(position < recipe.getSteps().size() - 1);
+        return recipeStepFragment;
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().
-                replace(R.id.frame_step_container, recipeStepFragment)
-                .commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction().
+//                replace(R.id.frame_step_container, recipeStepFragment)
+//                .commit();
     }
 
     @Override

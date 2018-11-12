@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+@SuppressLint("ValidFragment")
 public class RecipeDetailFragment extends Fragment implements IngredientListItemClickListener, StepListItemClickListener {
 
     private static final String RECIPE = "recipe";
@@ -42,7 +43,6 @@ public class RecipeDetailFragment extends Fragment implements IngredientListItem
 
     private StepListItemClickListener listener;
 
-    @SuppressLint("ValidFragment")
     public RecipeDetailFragment(StepListItemClickListener listener) {
         this.listener = listener;
     }

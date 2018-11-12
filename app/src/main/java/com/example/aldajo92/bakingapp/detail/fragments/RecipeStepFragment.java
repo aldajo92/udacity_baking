@@ -37,13 +37,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListener {
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_EXO_PLAYER_POSITION;
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_LIST_INDEX;
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_NEXT_ENABLED;
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_PREV_ENABLED;
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_STEP;
 
-    private static final String EXTRA_LIST_INDEX = "extra_list_index";
-    private static final String EXTRA_STEP = "extra_step";
-    private static final String EXTRA_PREV_ENABLED = "extra_prev_enabled";
-    private static final String EXTRA_NEXT_ENABLED = "extra_next_enabled";
-    private static final String EXTRA_EXO_PLAYER_POSITION = "extra_exo_player_position";
+public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListener {
 
     @Nullable
     @BindView(R.id.textview_step_count)
@@ -63,13 +63,13 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
     @BindView(R.id.textview_long_description)
     AppCompatTextView longDescription;
 
-    @Nullable
-    @BindView(R.id.button_prev)
-    Button prevButton;
-
-    @Nullable
-    @BindView(R.id.button_next)
-    Button nextButton;
+//    @Nullable
+//    @BindView(R.id.button_prev)
+//    Button prevButton;
+//
+//    @Nullable
+//    @BindView(R.id.button_next)
+//    Button nextButton;
 
     private int listIndex;
     private Step step;
@@ -113,8 +113,8 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
             stepCount.setText(getString(R.string.step_count, listIndex));
             shortDescription.setText(step.getShortDescription());
             longDescription.setText(step.getDescription());
-            prevButton.setEnabled(isPrevEnabled);
-            nextButton.setEnabled(isNextEnabled);
+//            prevButton.setEnabled(isPrevEnabled);
+//            nextButton.setEnabled(isNextEnabled);
         }
 
         if (!TextUtils.isEmpty(step.getVideoURL())) {
@@ -155,7 +155,6 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
 
     private void initializePlayer(Uri mediaUri) {
         if (exoPlayer == null) {
-            // Create an instance of the ExoPlayer.
             trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
             exoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector, loadControl);
