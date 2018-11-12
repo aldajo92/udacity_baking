@@ -1,10 +1,9 @@
-package com.example.aldajo92.bakingapp;
+package com.example.aldajo92.bakingapp.detail;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,6 +12,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.detail.fragments.RecipeStepFragment;
 import com.example.aldajo92.bakingapp.models.ui.Step;
 
@@ -28,7 +28,6 @@ import static com.example.aldajo92.bakingapp.Constants.EXTRA_STEP_LIST;
 
 public class RecipeStepActivity extends AppCompatActivity {
 
-    @Nullable
     @BindView(R.id.view_pager_content_view)
     ViewPager viewPagerSteps;
 
@@ -41,19 +40,7 @@ public class RecipeStepActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().hide();
-            }
-        } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().show();
-            }
-        }
+        setupActionBar();
 
         setContentView(R.layout.activity_recipe_step);
         ButterKnife.bind(this);
@@ -71,20 +58,32 @@ public class RecipeStepActivity extends AppCompatActivity {
             steps = savedInstanceState.getParcelableArrayList(EXTRA_STEP_LIST);
             currentStep = savedInstanceState.getInt(EXTRA_LIST_INDEX);
             recipeName = savedInstanceState.getString(EXTRA_RECIPE_NAME, "");
-        }
-
-        if (currentStep == -1 || steps == null) {
-            finish();
-        }
-
-        if (savedInstanceState == null) {
+        } else {
             createRecipeStepFragment(currentStep);
         }
 
         initViewPager();
 
         setTitle(recipeName);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private void setupActionBar() {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().hide();
+            }
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().show();
+            }
+        }
     }
 
     private void initViewPager() {
