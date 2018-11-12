@@ -31,6 +31,7 @@ ext {
     retrofitVersion = '2.4.0'
     okhttpVersion = '3.10.0'
     gsonVersion = '2.8.2'
+    exoplayer_version = 'r2.2.0'
 }
 
 dependencies {
@@ -56,4 +57,6 @@ dependencies {
     implementation "com.google.code.gson:gson:$gsonVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+
+    implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
 }

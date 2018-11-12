@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.aldajo92.bakingapp.ImageUtil;
+import com.example.aldajo92.bakingapp.ImageUtils;
 import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
 import com.squareup.picasso.Picasso;
@@ -39,7 +39,7 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
         if (!TextUtils.isEmpty(recipe.getImage())) {
             Picasso.get().load(recipe.getImage()).into(image);
         } else {
-            Picasso.get().load(ImageUtil.getImageResId(recipe.getName())).into(image);
+            Picasso.get().load(ImageUtils.getImageResId(recipe.getName())).into(image);
         }
         recipeName.setText(recipe.getName());
     }

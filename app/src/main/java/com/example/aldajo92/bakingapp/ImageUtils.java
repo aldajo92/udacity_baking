@@ -2,7 +2,7 @@ package com.example.aldajo92.bakingapp;
 
 import android.support.annotation.NonNull;
 
-public class ImageUtil {
+public class ImageUtils {
     private static final String NUTELLA_PIE = "Nutella Pie";
     private static final String BROWNIES = "Brownies";
     private static final String YELLOW_CAKE = "Yellow Cake";

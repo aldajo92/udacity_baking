@@ -13,21 +13,33 @@ import butterknife.ButterKnife;
 
 class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    @BindView(R.id.textview_step_count)
+    @BindView(R.id.textView_step_count)
     AppCompatTextView stepCount;
 
-    @BindView(R.id.textview_short_description)
+    @BindView(R.id.textView_short_description)
     AppCompatTextView shortDescription;
 
     private StepListItemClickListener stepListItemClickListener;
+
+    private int colorGraySmooth;
+
+    private int colorTransparent;
 
     public StepViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
+
+        colorGraySmooth = itemView.getResources().getColor(R.color.gray_smooth);
+        colorTransparent = itemView.getResources().getColor(R.color.transparent);
     }
 
     public void bind(@NonNull Step step, StepListItemClickListener stepListItemClickListener) {
+        if (getAdapterPosition() % 2 == 0) {
+            itemView.setBackgroundColor(colorGraySmooth);
+        } else {
+            itemView.setBackgroundColor(colorTransparent);
+        }
         this.stepListItemClickListener = stepListItemClickListener;
         stepCount.setText(stepCount.getContext().getString(R.string.step_count, getAdapterPosition()));
         shortDescription.setText(step.getShortDescription());

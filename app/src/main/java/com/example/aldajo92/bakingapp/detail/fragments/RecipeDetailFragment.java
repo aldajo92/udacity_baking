@@ -1,5 +1,6 @@
 package com.example.aldajo92.bakingapp.detail.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,6 +39,13 @@ public class RecipeDetailFragment extends Fragment implements IngredientListItem
     private Unbinder unbinder;
 
     private Recipe recipe;
+
+    private StepListItemClickListener listener;
+
+    @SuppressLint("ValidFragment")
+    public RecipeDetailFragment(StepListItemClickListener listener) {
+        this.listener = listener;
+    }
 
     @Nullable
     @Override
