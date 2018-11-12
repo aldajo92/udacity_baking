@@ -3,6 +3,7 @@
     <string name="ingredients">Ingredients</string>
     <string name="steps">Steps</string>
     <string name="step_count">%1$d.</string>
+    <string name="step_count_title">Step %1$d</string>
     <string name="sample_step_count">1</string>
     <string name="description">Description</string>
 

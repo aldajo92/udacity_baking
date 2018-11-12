@@ -10,9 +10,10 @@ public class Constants {
     public static final String EXTRA_RECIPE_NAME = "com.example.aldajo92.extra_recipe.extra_recipe_name";
     public static final String EXTRA_STEP_LIST = "com.example.aldajo92.extra_recipe.extra_step_list";
 
+    public static final String EXTRA_STEP = "com.example.aldajo92.extra_step";
+    public static final String EXTRA_PREV_ENABLED = "com.example.aldajo92.extra_prev_enabled";
+    public static final String EXTRA_NEXT_ENABLED = "com.example.aldajo92.extra_next_enabled";
+    public static final String EXTRA_EXO_PLAYER_POSITION = "com.example.aldajo92.extra_exo_player_position";
 
-    public static final String EXTRA_STEP = "extra_step";
-    public static final String EXTRA_PREV_ENABLED = "extra_prev_enabled";
-    public static final String EXTRA_NEXT_ENABLED = "extra_next_enabled";
-    public static final String EXTRA_EXO_PLAYER_POSITION = "extra_exo_player_position";
+    public static final String RECIPE = "com.example.aldajo92.recipe";
 }

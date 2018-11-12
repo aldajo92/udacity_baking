@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.models.ui.Step;
@@ -46,11 +45,11 @@ import static com.example.aldajo92.bakingapp.Constants.EXTRA_STEP;
 public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListener {
 
     @Nullable
-    @BindView(R.id.textview_step_count)
+    @BindView(R.id.textView_step_count)
     AppCompatTextView stepCount;
 
     @Nullable
-    @BindView(R.id.textview_short_description)
+    @BindView(R.id.textView_short_description)
     AppCompatTextView shortDescription;
 
     @BindView(R.id.exo_player_view)
@@ -60,16 +59,8 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
     AppCompatImageView noVideoImage;
 
     @Nullable
-    @BindView(R.id.textview_long_description)
+    @BindView(R.id.textView_long_description)
     AppCompatTextView longDescription;
-
-//    @Nullable
-//    @BindView(R.id.button_prev)
-//    Button prevButton;
-//
-//    @Nullable
-//    @BindView(R.id.button_next)
-//    Button nextButton;
 
     private int listIndex;
     private Step step;
@@ -109,12 +100,10 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
         View view = inflater.inflate(R.layout.fragment_recipe_step, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        if (view.findViewById(R.id.textview_step_count) != null) {
-            stepCount.setText(getString(R.string.step_count, listIndex));
+        if (view.findViewById(R.id.textView_step_count) != null) {
+            stepCount.setText(getString(R.string.step_count_title, listIndex));
             shortDescription.setText(step.getShortDescription());
             longDescription.setText(step.getDescription());
-//            prevButton.setEnabled(isPrevEnabled);
-//            nextButton.setEnabled(isNextEnabled);
         }
 
         if (!TextUtils.isEmpty(step.getVideoURL())) {
@@ -170,7 +159,7 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
         }
     }
 
-    private void releasePlayer() {
+    public void releasePlayer() {
         if (exoPlayer != null) {
             exoPlayer.setPlayWhenReady(false);
             exoPlayer.stop();
@@ -180,20 +169,19 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
         }
     }
 
+    public void stopPlayer() {
+        if (exoPlayer != null) {
+            exoPlayer.stop();
+            exoPlayer.release();
+        }
+    }
+
     public void setListIndex(int listIndex) {
         this.listIndex = listIndex;
     }
 
     public void setStep(Step step) {
         this.step = step;
-    }
-
-    public void isPrevEnabled(boolean enabled) {
-        this.isPrevEnabled = enabled;
-    }
-
-    public void isNextEnabled(boolean enabled) {
-        this.isNextEnabled = enabled;
     }
 
     @Override

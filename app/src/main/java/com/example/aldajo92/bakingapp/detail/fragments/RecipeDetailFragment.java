@@ -21,12 +21,11 @@ import com.example.aldajo92.bakingapp.models.ui.Recipe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
+
+import static com.example.aldajo92.bakingapp.Constants.RECIPE;
 
 @SuppressLint("ValidFragment")
 public class RecipeDetailFragment extends Fragment implements IngredientListItemClickListener, StepListItemClickListener {
-
-    private static final String RECIPE = "recipe";
 
     @BindView(R.id.recyclerview_ingredient)
     RecyclerView ingredientRecyclerView;
@@ -36,8 +35,6 @@ public class RecipeDetailFragment extends Fragment implements IngredientListItem
 
     private IngredientAdapter ingredientAdapter;
     private StepAdapter stepAdapter;
-
-    private Unbinder unbinder;
 
     private Recipe recipe;
 

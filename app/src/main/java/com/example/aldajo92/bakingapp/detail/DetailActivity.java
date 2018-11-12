@@ -1,6 +1,8 @@
 package com.example.aldajo92.bakingapp.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,24 +12,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
 import com.example.aldajo92.bakingapp.R;
+import com.example.aldajo92.bakingapp.RecipeStepActivity;
 import com.example.aldajo92.bakingapp.adapter.step.StepListItemClickListener;
 import com.example.aldajo92.bakingapp.detail.fragments.RecipeDetailFragment;
 import com.example.aldajo92.bakingapp.detail.fragments.RecipeStepFragment;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_LIST_INDEX;
 import static com.example.aldajo92.bakingapp.Constants.EXTRA_RECIPE;
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_RECIPE_NAME;
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_STEP_LIST;
 
-public class DetailActivity extends AppCompatActivity implements StepListItemClickListener {
+public class DetailActivity extends AppCompatActivity implements StepListItemClickListener, ViewPager.OnPageChangeListener {
 
     @Nullable
-    @BindView(R.id.frame_step_container)
+    @BindView(R.id.viewPager_step_container)
     ViewPager viewPagerSteps;
 
     @BindView(R.id.frame_container)
-    FrameLayout container;
+    FrameLayout frameContainer;
 
     private Recipe recipe;
 
@@ -55,7 +63,9 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
 //            selectedStepIndex = savedInstanceState.getInt(EXTRA_LIST_INDEX);
         }
 
-        initViewPager();
+        if (isTablet){
+            initViewPager();
+        }
 
 //        if (recipe != null) {
 //            if (savedInstanceState == null) {
@@ -88,6 +98,7 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
             }
         };
         viewPagerSteps.setAdapter(pagerAdapter);
+        viewPagerSteps.addOnPageChangeListener(this);
 
     }
 
@@ -105,27 +116,33 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
         RecipeStepFragment recipeStepFragment = new RecipeStepFragment();
         recipeStepFragment.setListIndex(position);
         recipeStepFragment.setStep(recipe.getSteps().get(position));
-        recipeStepFragment.isPrevEnabled(position > 0);
-        recipeStepFragment.isNextEnabled(position < recipe.getSteps().size() - 1);
         return recipeStepFragment;
-
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().
-//                replace(R.id.frame_step_container, recipeStepFragment)
-//                .commit();
     }
 
     @Override
     public void onStepItemClick(int position) {
         selectedStepIndex = position;
-        if (isTablet) {
-            replaceRecipeStepFragment(position);
+        if (isTablet && viewPagerSteps != null) {
+            viewPagerSteps.setCurrentItem(position);
         } else {
-//            Intent intent = new Intent(this, RecipeStepActivity.class);
-//            intent.putExtra(EXTRA_LIST_INDEX, position);
-//            intent.putParcelableArrayListExtra(EXTRA_STEP_LIST, new ArrayList<Parcelable>(recipe.getSteps()));
-//            intent.putExtra(EXTRA_RECIPE_NAME, recipe.getName());
-//            startActivity(intent);
+            Intent intent = new Intent(this, RecipeStepActivity.class);
+            intent.putExtra(EXTRA_LIST_INDEX, position);
+            intent.putParcelableArrayListExtra(EXTRA_STEP_LIST, new ArrayList<Parcelable>(recipe.getSteps()));
+            intent.putExtra(EXTRA_RECIPE_NAME, recipe.getName());
+            startActivity(intent);
         }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float v, int i1) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int position) {
+        ((RecipeStepFragment) pagerAdapter.getItem(position)).stopPlayer();
     }
 }
