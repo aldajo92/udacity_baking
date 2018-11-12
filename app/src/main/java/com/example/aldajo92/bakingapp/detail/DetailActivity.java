@@ -75,7 +75,7 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
 //            if (findViewById(R.id.recipe_step_content_view) != null) {
 //                isTwoPane = true;
 //                if (savedInstanceState == null) {
-////                    replaceRecipeStepFragment(selectedStepIndex);
+////                    createRecipeStepFragment(selectedStepIndex);
 //                }
 //            } else {
 //                isTwoPane = false;
@@ -89,7 +89,7 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
         pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return replaceRecipeStepFragment(position);
+                return createRecipeStepFragment(position);
             }
 
             @Override
@@ -112,7 +112,7 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
                 .commit();
     }
 
-    private RecipeStepFragment replaceRecipeStepFragment(int position) {
+    private RecipeStepFragment createRecipeStepFragment(int position) {
         RecipeStepFragment recipeStepFragment = new RecipeStepFragment();
         recipeStepFragment.setListIndex(position);
         recipeStepFragment.setStep(recipe.getSteps().get(position));
