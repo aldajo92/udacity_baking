@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.example.aldajo92.bakingapp.R;
@@ -63,7 +64,7 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
 //            selectedStepIndex = savedInstanceState.getInt(EXTRA_LIST_INDEX);
         }
 
-        if (isTablet){
+        if (isTablet) {
             initViewPager();
         }
 
@@ -83,6 +84,20 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
 //
 //            setTitle(recipe.getName());
 //        }
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().show();
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initViewPager() {
