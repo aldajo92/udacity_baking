@@ -7,7 +7,7 @@ public class ImageUtils {
     private static final String NUTELLA_PIE = "Nutella Pie";
     private static final String BROWNIES = "Brownies";
     private static final String YELLOW_CAKE = "Yellow Cake";
-    private static final String CHEESECAKE = "CheeseCake";
+    private static final String CHEESECAKE = "Cheesecake";
 
     public static int getImageResId(@NonNull String recipeName) {
         switch (recipeName) {

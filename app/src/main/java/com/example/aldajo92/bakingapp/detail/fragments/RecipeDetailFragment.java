@@ -40,7 +40,9 @@ public class RecipeDetailFragment extends Fragment implements IngredientListItem
 
     private StepListItemClickListener listener;
 
-    public RecipeDetailFragment(StepListItemClickListener listener) {
+    public RecipeDetailFragment() { }
+
+    public void setListener(StepListItemClickListener listener) {
         this.listener = listener;
     }
 
@@ -92,5 +94,11 @@ public class RecipeDetailFragment extends Fragment implements IngredientListItem
     @Override
     public void onStepItemClick(int position) {
         listener.onStepItemClick(position);
+    }
+
+    public static RecipeDetailFragment getInstance(StepListItemClickListener listener){
+        RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
+        recipeDetailFragment.setListener(listener);
+        return recipeDetailFragment;
     }
 }

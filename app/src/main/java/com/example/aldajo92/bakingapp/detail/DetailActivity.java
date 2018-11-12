@@ -51,42 +51,38 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
+        handleIntentExtras();
+
+        handleSavedInstanceState(savedInstanceState);
+
+        setupActionBar();
+
+        isTablet = viewPagerSteps != null;
+        if (isTablet) {
+            initViewPager();
+        }
+    }
+
+    private void handleIntentExtras() {
         if (getIntent().hasExtra(EXTRA_RECIPE)) {
             recipe = getIntent().getParcelableExtra(EXTRA_RECIPE);
             replaceRecipeDetailFragment(recipe);
         }
+    }
 
-        isTablet = viewPagerSteps != null;
-
+    private void handleSavedInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-//            recipe = savedInstanceState.getParcelable(EXTRA_RECIPE);
-//            selectedStepIndex = savedInstanceState.getInt(EXTRA_LIST_INDEX);
+            recipe = savedInstanceState.getParcelable(EXTRA_RECIPE);
+            selectedStepIndex = savedInstanceState.getInt(EXTRA_LIST_INDEX);
         }
+    }
 
-        if (isTablet) {
-            initViewPager();
-        }
-
-//        if (recipe != null) {
-//            if (savedInstanceState == null) {
-//                replaceRecipeDetailFragment(recipe);
-//            }
-//
-//            if (findViewById(R.id.recipe_step_content_view) != null) {
-//                isTwoPane = true;
-//                if (savedInstanceState == null) {
-////                    createRecipeStepFragment(selectedStepIndex);
-//                }
-//            } else {
-//                isTwoPane = false;
-//            }
-//
-//            setTitle(recipe.getName());
-//        }
+    private void setupActionBar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().show();
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        setTitle(recipe.getName());
     }
 
     @Override
@@ -97,6 +93,13 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(EXTRA_LIST_INDEX, selectedStepIndex);
+        outState.putParcelable(EXTRA_RECIPE, recipe);
     }
 
     private void initViewPager() {
@@ -117,7 +120,7 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
     }
 
     private void replaceRecipeDetailFragment(Recipe recipe) {
-        RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment(this);
+        RecipeDetailFragment recipeDetailFragment = RecipeDetailFragment.getInstance(this);
         recipeDetailFragment.setRecipe(recipe);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -139,7 +142,7 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
         if (isTablet && viewPagerSteps != null) {
             viewPagerSteps.setCurrentItem(position);
         } else {
-            Intent intent = new Intent(this, RecipeStepActivity.class);
+            Intent intent = new Intent(this, StepActivity.class);
             intent.putExtra(EXTRA_LIST_INDEX, position);
             intent.putParcelableArrayListExtra(EXTRA_STEP_LIST, new ArrayList<Parcelable>(recipe.getSteps()));
             intent.putExtra(EXTRA_RECIPE_NAME, recipe.getName());

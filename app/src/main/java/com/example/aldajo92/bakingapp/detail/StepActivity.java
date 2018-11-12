@@ -26,7 +26,7 @@ import static com.example.aldajo92.bakingapp.Constants.EXTRA_LIST_INDEX;
 import static com.example.aldajo92.bakingapp.Constants.EXTRA_RECIPE_NAME;
 import static com.example.aldajo92.bakingapp.Constants.EXTRA_STEP_LIST;
 
-public class RecipeStepActivity extends AppCompatActivity {
+public class StepActivity extends AppCompatActivity {
 
     @BindView(R.id.view_pager_content_view)
     ViewPager viewPagerSteps;
@@ -40,11 +40,19 @@ public class RecipeStepActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupActionBar();
+        initActionBar();
 
         setContentView(R.layout.activity_recipe_step);
         ButterKnife.bind(this);
 
+        handleIntentExtras();
+        handleSavedInstanceState(savedInstanceState);
+        initViewPager();
+
+        setupActionBar();
+    }
+
+    private void handleIntentExtras() {
         Intent intent = getIntent();
         if (intent != null) {
             if (intent.hasExtra(EXTRA_LIST_INDEX) && intent.hasExtra(EXTRA_STEP_LIST)) {
@@ -53,7 +61,9 @@ public class RecipeStepActivity extends AppCompatActivity {
                 recipeName = intent.getStringExtra(EXTRA_RECIPE_NAME);
             }
         }
+    }
 
+    private void handleSavedInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             steps = savedInstanceState.getParcelableArrayList(EXTRA_STEP_LIST);
             currentStep = savedInstanceState.getInt(EXTRA_LIST_INDEX);
@@ -61,17 +71,9 @@ public class RecipeStepActivity extends AppCompatActivity {
         } else {
             createRecipeStepFragment(currentStep);
         }
-
-        initViewPager();
-
-        setTitle(recipeName);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
     }
 
-    private void setupActionBar() {
+    private void initActionBar() {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -100,7 +102,14 @@ public class RecipeStepActivity extends AppCompatActivity {
         };
         viewPagerSteps.setAdapter(pagerAdapter);
         viewPagerSteps.setCurrentItem(currentStep, false);
+    }
 
+    private void setupActionBar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        setTitle(recipeName);
     }
 
     @Override
