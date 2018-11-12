@@ -20,6 +20,8 @@ class IngredientViewHolder extends RecyclerView.ViewHolder implements View.OnCli
     @BindView(R.id.textView_ingredient_summary)
     TextView ingredientSummary;
 
+    private Ingredient ingredient;
+
     private IngredientListItemClickListener ingredientListItemClickListener;
 
     public IngredientViewHolder(View itemView) {
@@ -29,6 +31,7 @@ class IngredientViewHolder extends RecyclerView.ViewHolder implements View.OnCli
     }
 
     void bind(@NonNull Ingredient ingredient, IngredientListItemClickListener ingredientListItemClickListener) {
+        this.ingredient = ingredient;
         this.ingredientListItemClickListener = ingredientListItemClickListener;
 //            int backgroundColor = getAdapterPosition() % 2 == 0 ? R.color.background1 : R.color.background2;
 //            layoutRoot.setBackgroundColor(ContextCompat.getColor(layoutRoot.getContext(), backgroundColor));
@@ -37,6 +40,6 @@ class IngredientViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 
     @Override
     public void onClick(View v) {
-//        ingredientListItemClickListener.onIngredientItemClick(ingredients.get(getAdapterPosition()));
+        ingredientListItemClickListener.onIngredientItemClick(ingredient, getAdapterPosition());
     }
 }

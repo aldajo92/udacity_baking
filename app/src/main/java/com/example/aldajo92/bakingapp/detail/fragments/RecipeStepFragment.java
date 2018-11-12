@@ -1,7 +1,5 @@
 package com.example.aldajo92.bakingapp.detail.fragments;
 
-
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,11 +35,9 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Optional;
 import butterknife.Unbinder;
 
-public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListener{
+public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListener {
 
     private static final String EXTRA_LIST_INDEX = "extra_list_index";
     private static final String EXTRA_STEP = "extra_step";
@@ -82,7 +78,6 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
     private long position;
 
     private Unbinder unbinder;
-    private StepActionListener stepActionListener;
     private TrackSelector trackSelector;
     private SimpleExoPlayer exoPlayer;
 
@@ -105,23 +100,12 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
         outState.putParcelable(EXTRA_STEP, step);
         outState.putBoolean(EXTRA_PREV_ENABLED, isPrevEnabled);
         outState.putBoolean(EXTRA_NEXT_ENABLED, isNextEnabled);
-        outState.putLong(EXTRA_EXO_PLAYER_POSITION,position);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            stepActionListener = (StepActionListener) context;
-        } catch (ClassCastException ex) {
-            throw new ClassCastException(context.toString() + " should implements interface StepActionListener.");
-        }
+        outState.putLong(EXTRA_EXO_PLAYER_POSITION, position);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_step, container, false);
         unbinder = ButterKnife.bind(this, view);
 
@@ -136,8 +120,7 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
         if (!TextUtils.isEmpty(step.getVideoURL())) {
             noVideoImage.setVisibility(View.GONE);
             initializePlayer(Uri.parse(step.getVideoURL()));
-        }
-        else {
+        } else {
             playerView.setVisibility(View.GONE);
             if (!TextUtils.isEmpty(step.getThumbnailURL())) {
                 try {
@@ -178,10 +161,6 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
             exoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector, loadControl);
             playerView.setPlayer(exoPlayer);
 
-            // Set the ExoPlayer.EventListener to this activity.
-            // exoPlayer.addListener(this);
-
-            // Prepare the MediaSource.
             String userAgent = Util.getUserAgent(getActivity(), getString(R.string.app_name));
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     getActivity(), userAgent), new DefaultExtractorsFactory(), null, null);
@@ -218,18 +197,6 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
         this.isNextEnabled = enabled;
     }
 
-    @Optional
-    @OnClick(R.id.button_prev)
-    public void previousStep() {
-        stepActionListener.onPrev();
-    }
-
-    @Optional
-    @OnClick(R.id.button_next)
-    public void nextStep() {
-        stepActionListener.onNext();
-    }
-
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest) {
 
@@ -258,11 +225,5 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
     @Override
     public void onPositionDiscontinuity() {
 
-    }
-
-    public interface StepActionListener {
-        void onNext();
-
-        void onPrev();
     }
 }

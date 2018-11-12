@@ -88,12 +88,12 @@ public class RecipeDetailFragment extends Fragment implements IngredientListItem
     }
 
     @Override
-    public void onIngredientItemClick(Ingredient ingredient) {
+    public void onIngredientItemClick(Ingredient ingredient, int position) {
 
     }
 
     @Override
     public void onStepItemClick(int position) {
-
+        listener.onStepItemClick(position);
     }
 }

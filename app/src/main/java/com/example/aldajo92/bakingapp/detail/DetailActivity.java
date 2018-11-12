@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.adapter.step.StepListItemClickListener;
@@ -45,12 +44,11 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
         }
 
         isTablet = frameStep != null;
-        Toast.makeText(this, "Is tablet? = " + isTablet, Toast.LENGTH_LONG).show();
 
-//        else if (savedInstanceState != null) {
+        if (savedInstanceState != null) {
 //            recipe = savedInstanceState.getParcelable(EXTRA_RECIPE);
 //            selectedStepIndex = savedInstanceState.getInt(EXTRA_LIST_INDEX);
-//        }
+        }
 
 //        if (recipe != null) {
 //            if (savedInstanceState == null) {
