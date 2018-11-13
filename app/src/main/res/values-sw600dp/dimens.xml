@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="width_image_home">600dp</dimen>
+    <dimen name="height_image_home">350dp</dimen>
+    <dimen name="video_height">400dp</dimen>
+</resources>

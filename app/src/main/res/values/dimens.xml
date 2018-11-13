@@ -6,7 +6,7 @@
     <dimen name="margin_xlarge">30dp</dimen>
 
     <dimen name="width_image_home">300dp</dimen>
-    <dimen name="height_image_home">150dp</dimen>
+    <dimen name="height_image_home">200dp</dimen>
 
     <dimen name="width_image_large">200dp</dimen>
     <dimen name="height_image_large">300dp</dimen>
@@ -16,5 +16,7 @@
     <dimen name="font_normal">16sp</dimen>
     <dimen name="font_large">20sp</dimen>
     <dimen name="font_huge">30sp</dimen>
+
+    <dimen name="video_height">275dp</dimen>
 
 </resources>

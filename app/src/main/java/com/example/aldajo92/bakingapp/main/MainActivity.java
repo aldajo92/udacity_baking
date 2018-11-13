@@ -32,11 +32,6 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
 
     private RecipeAdapter recipeAdapter;
 
-    private static final int PHONE_POTRAIT_COLUMN = 1;
-    private static final int PHONE_LANDSCAPE_COLUMN = 2;
-    private static final int TABLET_POTRAIT_COLUMN = 2;
-    private static final int TABLET_LANDSCAPE_COLUMN = 3;
-
     private MainViewModel viewModel;
 
     @Override

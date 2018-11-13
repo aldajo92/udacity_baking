@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.aldajo92.bakingapp.ImageUtils;
 import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.models.ui.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -30,7 +31,6 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -111,15 +111,7 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
             initializePlayer(Uri.parse(step.getVideoURL()));
         } else {
             playerView.setVisibility(View.GONE);
-            if (!TextUtils.isEmpty(step.getThumbnailURL())) {
-                try {
-                    Picasso.get().load(Uri.parse(step.getThumbnailURL())).into(noVideoImage);
-                } catch (Exception ex) {
-                    Picasso.get().load(R.drawable.no_video_available).into(noVideoImage);
-                }
-            } else {
-                Picasso.get().load(R.drawable.no_video_available).into(noVideoImage);
-            }
+            ImageUtils.loadImageFromUrl(step.getThumbnailURL(), noVideoImage, R.drawable.video_unavailable);
             noVideoImage.setVisibility(View.VISIBLE);
         }
 
