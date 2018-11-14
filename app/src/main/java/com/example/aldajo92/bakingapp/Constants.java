@@ -1,6 +1,10 @@
 package com.example.aldajo92.bakingapp;
 
 public class Constants {
+
+    public static int NETWORK_ERROR = 404;
+    public static int OTHER_ERROR = 0;
+
     public static String BASE_URL = "https://d17h27t6h515a5.cloudfront.net";
 
     public static final String EXTRA_RECIPE_LIST = "com.example.aldajo92.extra_recipes_list";

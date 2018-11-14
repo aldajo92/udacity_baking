@@ -8,6 +8,6 @@ public interface MainViewLister {
 
     void onRecipes(List<Recipe> recipeList);
 
-    void showError(String message);
+    void showError(int typeError, String message);
 
 }

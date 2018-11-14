@@ -2,13 +2,15 @@ package com.example.aldajo92.bakingapp.main;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.adapter.recipe.RecipeAdapter;
@@ -24,11 +26,21 @@ import butterknife.ButterKnife;
 
 import static com.example.aldajo92.bakingapp.Constants.EXTRA_RECIPE;
 import static com.example.aldajo92.bakingapp.Constants.EXTRA_RECIPE_LIST;
+import static com.example.aldajo92.bakingapp.Constants.NETWORK_ERROR;
 
 public class MainActivity extends AppCompatActivity implements RecipeListItemClickListener, MainViewLister {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    @BindView(R.id.imageView_no_internet)
+    ImageView imageViewNoInternet;
+
+    @BindView(R.id.textView_no_internet)
+    TextView textViewNoInternet;
+
+    @BindView(R.id.button_try_again)
+    TextView buttonTryAgain;
 
     private RecipeAdapter recipeAdapter;
 
@@ -45,12 +57,15 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
         viewModel.setMainViewLister(this);
 
         initRecyclerView();
+        initListeners();
 
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(EXTRA_RECIPE_LIST)) {
                 List<Recipe> recipes = savedInstanceState.getParcelableArrayList(EXTRA_RECIPE_LIST);
                 recipeAdapter.setItems(recipes);
             }
+        } else {
+            viewModel.getRecipes();
         }
     }
 
@@ -62,6 +77,15 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
         recyclerView.setAdapter(recipeAdapter);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+    }
+
+    private void initListeners() {
+        buttonTryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.getRecipes();
+            }
+        });
     }
 
     private int calculateBestSpanCount(int posterWidth) {
@@ -81,12 +105,23 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
 
     @Override
     public void onRecipes(List<Recipe> recipeList) {
+        showViewError(false);
         recipeAdapter.setItems(recipeList);
     }
 
     @Override
-    public void showError(String message) {
+    public void showError(int typeError, String message) {
+        if (typeError == NETWORK_ERROR){
+            showViewError(true);
+            textViewNoInternet.setText(message);
+        }
+    }
 
+    private void showViewError(boolean showError){
+        recyclerView.setVisibility(showError ? View.GONE : View.VISIBLE);
+        textViewNoInternet.setVisibility(showError ? View.VISIBLE : View.GONE);
+        buttonTryAgain.setVisibility(showError ? View.VISIBLE : View.GONE);
+        imageViewNoInternet.setVisibility(showError ? View.VISIBLE : View.GONE);
     }
 
     @Override
