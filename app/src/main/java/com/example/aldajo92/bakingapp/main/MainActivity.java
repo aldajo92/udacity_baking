@@ -17,6 +17,8 @@ import com.example.aldajo92.bakingapp.adapter.recipe.RecipeAdapter;
 import com.example.aldajo92.bakingapp.adapter.recipe.RecipeListItemClickListener;
 import com.example.aldajo92.bakingapp.detail.DetailActivity;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
+import com.example.aldajo92.bakingapp.service.RecipeWidgetService;
+import com.example.aldajo92.bakingapp.util.PreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
 
     @Override
     public void onRecipeItemClick(Recipe recipe) {
+        PreferenceUtil.setSelectedRecipeId(this, recipe.getRecipeId());
+        PreferenceUtil.setSelectedRecipeName(this, recipe.getName());
+        RecipeWidgetService.startActionUpdateWidgets(this);
+
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(EXTRA_RECIPE, recipe);
         startActivity(intent);

@@ -32,6 +32,7 @@ ext {
     okhttpVersion = '3.10.0'
     gsonVersion = '2.8.2'
     exoplayer_version = 'r2.2.0'
+    schematic_version = '0.7.0'
 }
 
 dependencies {
@@ -59,4 +60,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
 
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
+
+    annotationProcessor "net.simonvt.schematic:schematic-compiler:$schematic_version"
+    implementation "net.simonvt.schematic:schematic:$schematic_version"
 }
