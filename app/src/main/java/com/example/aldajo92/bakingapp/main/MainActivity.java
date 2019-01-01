@@ -2,7 +2,6 @@ package com.example.aldajo92.bakingapp.main;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +14,7 @@ import com.example.aldajo92.bakingapp.adapter.recipe.RecipeAdapter;
 import com.example.aldajo92.bakingapp.adapter.recipe.RecipeListItemClickListener;
 import com.example.aldajo92.bakingapp.detail.DetailActivity;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
+import com.example.aldajo92.bakingapp.service.RecipeWidgetService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.setMainViewLister(this);
+
+        viewModel.updateRecipeList();
 
         initRecyclerView();
 
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
     @Override
     public void onRecipes(List<Recipe> recipeList) {
         recipeAdapter.setItems(recipeList);
+
+        RecipeWidgetService.startActionUpdateWidgets(MainActivity.this);
     }
 
     @Override

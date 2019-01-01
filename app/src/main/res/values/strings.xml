@@ -6,4 +6,7 @@
     <string name="step_count_title">Step %1$d</string>
     <string name="sample_step_count">1</string>
     <string name="description">Description</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="recipes">Recipes</string>
 </resources>
