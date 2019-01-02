@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeListWidgetService extends RemoteViewsService {
@@ -16,8 +17,8 @@ public class RecipeListWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        Type type = new TypeToken<List<Recipe>>(){}.getType();
-        List<Recipe> recipes = new Gson().fromJson(intent.getStringExtra(RECIPES_KEY), type);
+        Type type = new TypeToken<ArrayList<Recipe>>(){}.getType();
+        ArrayList<Recipe> recipes = new Gson().fromJson(intent.getStringExtra(RECIPES_KEY), type);
         return new RecipeListRemoteViewsFactory(getApplicationContext(), recipes);
     }
 }

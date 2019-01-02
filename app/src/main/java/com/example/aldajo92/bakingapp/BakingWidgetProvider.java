@@ -47,16 +47,16 @@ public class BakingWidgetProvider extends AppWidgetProvider {
     private static RemoteViews getIngredientListRemoteView(Context context) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_list_view);
         String recipeName = PreferenceUtil.getSelectedRecipeName(context);
-//        views.setTextViewText(R.id.title_text_view, context.getString(R.string.ingredient_of, recipeName));
-//
+        views.setTextViewText(R.id.title_text_view, context.getString(R.string.ingredient_of, recipeName));
+
 //        Intent intent = new Intent(context, IngredientListWidgetService.class);
 //        views.setRemoteAdapter(R.id.widget_list_view, intent);
 //
 //        Intent appIntent = new Intent(context, RecipeDetailActivity.class);
 //        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 //        views.setPendingIntentTemplate(R.id.widget_list_view, appPendingIntent);
-//
-//        views.setEmptyView(R.id.widget_list_view, R.id.empty_view);
+
+        views.setEmptyView(R.id.widget_list_view, R.id.empty_view);
         return views;
     }
 

@@ -38,24 +38,31 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void updateRecipeList(){
-        deleteAll();
-        moviesApi.getRecipes().enqueue(new Callback<List<RecipeModel>>() {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
-            public void onResponse(Call<List<RecipeModel>> call, Response<List<RecipeModel>> response) {
-                recipeModelList = response.body();
-                List<Recipe> recipeList = new ArrayList<>();
-                for (RecipeModel recipeModel : recipeModelList) {
-                    recipeList.add(new Recipe(recipeModel));
-                    saveRecipeEntry(new RecipeEntry(recipeModel));
-                }
+            public void run() {
+                database.getRecipeDao().deleteAll();
 
-                if (mainViewLister != null) {
-                    mainViewLister.onRecipes(recipeList);
-                }
-            }
+                moviesApi.getRecipes().enqueue(new Callback<List<RecipeModel>>() {
+                    @Override
+                    public void onResponse(Call<List<RecipeModel>> call, Response<List<RecipeModel>> response) {
+                        recipeModelList = response.body();
+                        List<Recipe> recipeList = new ArrayList<>();
+                        for (RecipeModel recipeModel : recipeModelList) {
+                            recipeList.add(new Recipe(recipeModel));
+                            saveRecipeEntry(new RecipeEntry(recipeModel));
+                        }
 
-            @Override
-            public void onFailure(Call<List<RecipeModel>> call, Throwable t) {
+                        if (mainViewLister != null) {
+                            mainViewLister.onRecipes(recipeList);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<RecipeModel>> call, Throwable t) {
+
+                    }
+                });
 
             }
         });
@@ -70,15 +77,6 @@ public class MainViewModel extends AndroidViewModel {
             @Override
             public void run() {
                 database.getRecipeDao().insertRecipe(movieEntry);
-            }
-        });
-    }
-
-    public void deleteAll() {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                database.getRecipeDao().deleteAll();
             }
         });
     }
