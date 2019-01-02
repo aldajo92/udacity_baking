@@ -69,7 +69,7 @@ public class MainViewModel extends AndroidViewModel {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                database.recipeDao().insertRecipe(movieEntry);
+                database.getRecipeDao().insertRecipe(movieEntry);
             }
         });
     }
@@ -78,7 +78,7 @@ public class MainViewModel extends AndroidViewModel {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                database.recipeDao().deleteAll();
+                database.getRecipeDao().deleteAll();
             }
         });
     }

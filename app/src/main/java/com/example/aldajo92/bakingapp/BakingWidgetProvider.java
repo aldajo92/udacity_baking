@@ -9,21 +9,27 @@ import android.widget.RemoteViews;
 
 import com.example.aldajo92.bakingapp.detail.DetailActivity;
 import com.example.aldajo92.bakingapp.models.WidgetType;
+import com.example.aldajo92.bakingapp.models.ui.Recipe;
 import com.example.aldajo92.bakingapp.service.RecipeListWidgetService;
 import com.example.aldajo92.bakingapp.service.RecipeWidgetService;
 import com.example.aldajo92.bakingapp.util.PreferenceUtil;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+
+import static com.example.aldajo92.bakingapp.service.RecipeListWidgetService.RECIPES_KEY;
 
 public class BakingWidgetProvider extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId, WidgetType widgetType) {
+                                int appWidgetId, WidgetType widgetType, ArrayList<Recipe> recipeList) {
 
         RemoteViews views;
 
         if (widgetType == WidgetType.INGREDIENTS) {
             views = getIngredientListRemoteView(context);
         } else if (widgetType == WidgetType.RECIPES) {
-            views = getRecipeListRemoteView(context);
+            views = getRecipeListRemoteView(context, recipeList);
         } else {
             views = getEmptyRemoteView(context);
         }
@@ -31,9 +37,9 @@ public class BakingWidgetProvider extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
-    public static void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, WidgetType widgetType) {
+    public static void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, WidgetType widgetType, ArrayList<Recipe> recipeList) {
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId, widgetType);
+            updateAppWidget(context, appWidgetManager, appWidgetId, widgetType, recipeList);
         }
     }
 
@@ -53,17 +59,19 @@ public class BakingWidgetProvider extends AppWidgetProvider {
         return views;
     }
 
-    private static RemoteViews getRecipeListRemoteView(Context context) {
+    private static RemoteViews getRecipeListRemoteView(Context context, ArrayList<Recipe> recipes) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_list_view);
         String title = context.getString(R.string.recipes);
         views.setTextViewText(R.id.title_text_view, title);
 
         Intent intent = new Intent(context, RecipeListWidgetService.class);
+        String recipesJson = new Gson().toJson(recipes);
+        intent.putExtra(RECIPES_KEY, recipesJson);
         views.setRemoteAdapter(R.id.widget_list_view, intent);
 
-        Intent appIntent = new Intent(context, DetailActivity.class);
-        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setPendingIntentTemplate(R.id.widget_list_view, appPendingIntent);
+//        Intent appIntent = new Intent(context, DetailActivity.class);
+//        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        views.setPendingIntentTemplate(R.id.widget_list_view, appPendingIntent);
 
         views.setEmptyView(R.id.widget_list_view, R.id.empty_view);
         return views;

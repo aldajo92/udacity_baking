@@ -22,6 +22,7 @@ public class Ingredient implements Parcelable {
     }
 
     public Ingredient() {
+
     }
 
     public Ingredient(IngredientModel ingredientModel) {

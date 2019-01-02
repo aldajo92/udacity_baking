@@ -3,6 +3,7 @@ package com.example.aldajo92.bakingapp.models.ui;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.aldajo92.bakingapp.db.RecipeEntry;
 import com.example.aldajo92.bakingapp.models.network.IngredientModel;
 import com.example.aldajo92.bakingapp.models.network.RecipeModel;
 import com.example.aldajo92.bakingapp.models.network.StepModel;
@@ -12,9 +13,7 @@ import java.util.List;
 
 public class Recipe implements Parcelable {
 
-    private int rowId;
-
-    private int recipeId;
+    private long recipeId;
 
     private String name;
 
@@ -36,11 +35,15 @@ public class Recipe implements Parcelable {
     }
 
     public Recipe() {
-
+        recipeId = 0;
+        name = "";
+        ingredients = null;
+        steps = null;
+        servings = 0;
+        image = "";
     }
 
     public Recipe(RecipeModel recipeModel) {
-        rowId = recipeModel.getRowId();
         recipeId = recipeModel.getRecipeId();
         name = recipeModel.getName();
         for (IngredientModel ingredient :
@@ -55,6 +58,21 @@ public class Recipe implements Parcelable {
         image = recipeModel.getImage();
     }
 
+    public Recipe(RecipeEntry recipeEntry) {
+        recipeId = recipeEntry.getRecipeId();
+        name = recipeEntry.getName();
+        for (IngredientModel ingredient :
+                recipeEntry.getIngredientList()) {
+            ingredients.add(new Ingredient(ingredient));
+        }
+//        for (StepModel step :
+//                recipeEntry.getSteps()) {
+//            steps.add(new Step(step));
+//        }
+        servings = recipeEntry.getServings();
+        image = recipeEntry.getImage();
+    }
+
     public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {
         @Override
         public Recipe createFromParcel(Parcel in) {
@@ -67,15 +85,7 @@ public class Recipe implements Parcelable {
         }
     };
 
-    public int getRowId() {
-        return rowId;
-    }
-
-    public void setRowId(int rowId) {
-        this.rowId = rowId;
-    }
-
-    public int getRecipeId() {
+    public long getRecipeId() {
         return recipeId;
     }
 
@@ -130,7 +140,7 @@ public class Recipe implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(recipeId);
+        dest.writeLong(recipeId);
         dest.writeString(name);
         dest.writeTypedList(ingredients);
         dest.writeTypedList(steps);

@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
     @Override
     public void onRecipes(List<Recipe> recipeList) {
         recipeAdapter.setItems(recipeList);
-
         RecipeWidgetService.startActionUpdateWidgets(MainActivity.this);
     }
 
