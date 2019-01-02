@@ -1,4 +1,4 @@
-package com.example.aldajo92.bakingapp.service;
+package com.example.aldajo92.bakingapp.service.recipe;
 
 import android.content.Context;
 import android.content.Intent;
@@ -52,12 +52,9 @@ class RecipeListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFact
         RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.ingredient_list_item);
         views.setTextViewText(R.id.textview_ingredient_summary, recipe.getName());
 
-        // Fill in the onClick PendingIntent Template using the specific plant Id for each item individually
-        //Bundle extras = new Bundle();
-        //extras.putParcelable(RecipeActivity.EXTRA_RECIPE, recipeEntry);
         Intent intent = new Intent();
         intent.putExtra(EXTRA_RECIPE, recipe);
-        views.setOnClickFillInIntent(R.id.textview_ingredient_summary, intent);
+        views.setOnClickFillInIntent(R.id.layout_root, intent);
 
         return views;
     }
@@ -80,35 +77,6 @@ class RecipeListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFact
     @Override
     public boolean hasStableIds() {
         return false;
-    }
-
-    private static class RecipeEntriesAsyncTask extends AsyncTask<Void, Void, List<RecipeEntry>> {
-        private RecipeDatabase recipeDatabase;
-        private UpdateRecipeListener updateRecipeListener;
-
-        RecipeEntriesAsyncTask(RecipeDatabase recipeDatabase, UpdateRecipeListener updateRecipeListener) {
-            this.recipeDatabase = recipeDatabase;
-            this.updateRecipeListener = updateRecipeListener;
-        }
-
-        @Override
-        protected List<RecipeEntry> doInBackground(Void... voids) {
-            return recipeDatabase.getRecipeDao().getRecipes();
-        }
-
-        @Override
-        protected void onPostExecute(List<RecipeEntry> recipeEntries) {
-            super.onPostExecute(recipeEntries);
-            if (updateRecipeListener != null) {
-                updateRecipeListener.onRecipeReceived(recipeEntries);
-            }
-        }
-    }
-
-    private interface UpdateRecipeListener {
-
-        void onRecipeReceived(List<RecipeEntry> recipeEntries);
-
     }
 
 }

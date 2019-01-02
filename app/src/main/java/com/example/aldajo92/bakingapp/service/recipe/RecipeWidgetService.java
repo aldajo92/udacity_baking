@@ -1,4 +1,4 @@
-package com.example.aldajo92.bakingapp.service;
+package com.example.aldajo92.bakingapp.service.recipe;
 
 import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.LifecycleService;

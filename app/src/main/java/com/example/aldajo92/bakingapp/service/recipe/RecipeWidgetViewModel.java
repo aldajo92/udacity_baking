@@ -1,4 +1,4 @@
-package com.example.aldajo92.bakingapp.service;
+package com.example.aldajo92.bakingapp.service.recipe;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

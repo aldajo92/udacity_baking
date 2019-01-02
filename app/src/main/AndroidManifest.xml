@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".detail.DetailActivity"
+        <activity
+            android:name=".detail.DetailActivity"
             android:launchMode="singleTask"
             android:parentActivityName=".main.MainActivity">
             <meta-data
@@ -42,10 +43,16 @@
                 android:resource="@xml/baking_widget_provider_info" />
         </receiver>
 
-        <service android:name=".service.RecipeWidgetService" />
+        <service android:name=".service.recipe.RecipeWidgetService" />
+
         <service
-            android:name=".service.RecipeListWidgetService"
+            android:name=".service.recipe.RecipeListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <service
+            android:name=".service.ingredient.IngredientListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>

@@ -17,7 +17,7 @@ import com.example.aldajo92.bakingapp.adapter.step.StepListItemClickListener;
 import com.example.aldajo92.bakingapp.detail.fragments.RecipeDetailFragment;
 import com.example.aldajo92.bakingapp.detail.fragments.RecipeStepFragment;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
-import com.example.aldajo92.bakingapp.service.RecipeWidgetService;
+import com.example.aldajo92.bakingapp.service.recipe.RecipeWidgetService;
 import com.example.aldajo92.bakingapp.util.PreferenceUtil;
 
 import java.util.ArrayList;

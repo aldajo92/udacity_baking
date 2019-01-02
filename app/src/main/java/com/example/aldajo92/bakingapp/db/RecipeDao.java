@@ -34,6 +34,6 @@ public interface RecipeDao {
     void deleteAll();
 
     @Query("SELECT * FROM " + RECIPES_TABLE + " WHERE recipeId = :recipeId")
-    LiveData<RecipeEntry> getFavoriteMovieById(long recipeId);
+    RecipeEntry getRecipeById(long recipeId);
 
 }
