@@ -12,6 +12,7 @@ import com.example.aldajo92.bakingapp.db.RecipeDao;
 import com.example.aldajo92.bakingapp.db.RecipeDatabase;
 import com.example.aldajo92.bakingapp.db.RecipeEntry;
 import com.example.aldajo92.bakingapp.detail.DetailActivity;
+import com.example.aldajo92.bakingapp.main.MainActivity;
 import com.example.aldajo92.bakingapp.models.WidgetType;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
 import com.example.aldajo92.bakingapp.service.ingredient.IngredientListWidgetService;
@@ -89,7 +90,7 @@ public class BakingWidgetProvider extends AppWidgetProvider {
         bundle.putString(SELECTED_RECIPE_KEY, ingredientJson);
         intent.putExtras(bundle);
         views.setRemoteAdapter(R.id.widget_list_view, intent);
-//
+
         Intent appIntent = new Intent(context, DetailActivity.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_list_view, appPendingIntent);
@@ -121,10 +122,10 @@ public class BakingWidgetProvider extends AppWidgetProvider {
     private static RemoteViews getEmptyRemoteView(Context context) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.empty_widget_view);
 
-//        Intent appIntent = new Intent(context, RecipeActivity.class);
-//        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        views.setPendingIntentTemplate(R.id.empty_widget_image_view, appPendingIntent);
-//        views.setOnClickPendingIntent(R.id.empty_widget_image_view, appPendingIntent);
+        Intent appIntent = new Intent(context, MainActivity.class);
+        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.empty_widget_image_view, appPendingIntent);
+        views.setOnClickPendingIntent(R.id.empty_widget_image_view, appPendingIntent);
 
         return views;
     }
