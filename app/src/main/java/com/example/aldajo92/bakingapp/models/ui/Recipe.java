@@ -13,7 +13,9 @@ import java.util.List;
 
 public class Recipe implements Parcelable {
 
-    private long recipeId;
+    private int rowId;
+
+    private int recipeId;
 
     private String name;
 
@@ -35,15 +37,11 @@ public class Recipe implements Parcelable {
     }
 
     public Recipe() {
-        recipeId = 0;
-        name = "";
-        ingredients = null;
-        steps = null;
-        servings = 0;
-        image = "";
+
     }
 
     public Recipe(RecipeModel recipeModel) {
+        rowId = recipeModel.getRowId();
         recipeId = recipeModel.getRecipeId();
         name = recipeModel.getName();
         for (IngredientModel ingredient :
@@ -65,10 +63,10 @@ public class Recipe implements Parcelable {
                 recipeEntry.getIngredientList()) {
             ingredients.add(new Ingredient(ingredient));
         }
-//        for (StepModel step :
-//                recipeEntry.getSteps()) {
-//            steps.add(new Step(step));
-//        }
+        for (StepModel step :
+                recipeEntry.getStepList()) {
+            steps.add(new Step(step));
+        }
         servings = recipeEntry.getServings();
         image = recipeEntry.getImage();
     }
@@ -85,7 +83,15 @@ public class Recipe implements Parcelable {
         }
     };
 
-    public long getRecipeId() {
+    public int getRowId() {
+        return rowId;
+    }
+
+    public void setRowId(int rowId) {
+        this.rowId = rowId;
+    }
+
+    public int getRecipeId() {
         return recipeId;
     }
 
@@ -140,7 +146,7 @@ public class Recipe implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(recipeId);
+        dest.writeInt(recipeId);
         dest.writeString(name);
         dest.writeTypedList(ingredients);
         dest.writeTypedList(steps);

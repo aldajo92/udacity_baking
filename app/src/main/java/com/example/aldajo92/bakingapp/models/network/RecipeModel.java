@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class RecipeModel {
+    private int rowId;
 
     @SerializedName("id")
     private int recipeId;
@@ -23,6 +24,10 @@ public class RecipeModel {
 
     @SerializedName("image")
     private String image;
+
+    public int getRowId() {
+        return rowId;
+    }
 
     public int getRecipeId() {
         return recipeId;

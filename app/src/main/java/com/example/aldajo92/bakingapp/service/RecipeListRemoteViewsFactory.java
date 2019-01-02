@@ -55,9 +55,9 @@ class RecipeListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFact
         // Fill in the onClick PendingIntent Template using the specific plant Id for each item individually
         //Bundle extras = new Bundle();
         //extras.putParcelable(RecipeActivity.EXTRA_RECIPE, recipeEntry);
-        Intent fillInIntent = new Intent();
-        fillInIntent.putExtra(EXTRA_RECIPE, recipe);
-        views.setOnClickFillInIntent(R.id.textview_ingredient_summary, fillInIntent);
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_RECIPE, recipe);
+        views.setOnClickFillInIntent(R.id.textview_ingredient_summary, intent);
 
         return views;
     }

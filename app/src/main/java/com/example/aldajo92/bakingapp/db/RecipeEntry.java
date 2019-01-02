@@ -7,6 +7,7 @@ import android.arch.persistence.room.TypeConverters;
 
 import com.example.aldajo92.bakingapp.models.network.IngredientModel;
 import com.example.aldajo92.bakingapp.models.network.RecipeModel;
+import com.example.aldajo92.bakingapp.models.network.StepModel;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import static com.example.aldajo92.bakingapp.db.DBConstants.RECIPES_TABLE;
 public class RecipeEntry {
 
     @PrimaryKey()
-    private long recipeId;
+    private int recipeId;
 
     @ColumnInfo
     private String name;
@@ -27,6 +28,10 @@ public class RecipeEntry {
     @ColumnInfo
     @TypeConverters(DataTypeConverter.class)
     private List<IngredientModel> ingredientList;
+
+    @ColumnInfo
+    @TypeConverters(DataTypeConverter.class)
+    private List<StepModel> stepList;
 
     @ColumnInfo
     private int servings;
@@ -40,7 +45,7 @@ public class RecipeEntry {
         this.imageUrl = "";
     }
 
-    public RecipeEntry(long id, String title, String imageUrl, List<IngredientModel> ingredientModelList) {
+    public RecipeEntry(int id, String title, String imageUrl, List<IngredientModel> ingredientModelList) {
         this.recipeId = id;
         this.name = title;
         this.imageUrl = imageUrl;
@@ -52,9 +57,10 @@ public class RecipeEntry {
         this.name = recipeModel.getName();
         this.imageUrl = recipeModel.getImage();
         this.ingredientList = recipeModel.getIngredients();
+        this.stepList = recipeModel.getSteps();
     }
 
-    public long getRecipeId() {
+    public int getRecipeId() {
         return recipeId;
     }
 
@@ -78,7 +84,11 @@ public class RecipeEntry {
         return image;
     }
 
-    public void setRecipeId(long id) {
+    public List<StepModel> getStepList() {
+        return stepList;
+    }
+
+    public void setRecipeId(int id) {
         this.recipeId = id;
     }
 
@@ -100,5 +110,9 @@ public class RecipeEntry {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public void setStepList(List<StepModel> stepList) {
+        this.stepList = stepList;
     }
 }

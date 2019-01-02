@@ -35,7 +35,7 @@ class IngredientViewHolder extends RecyclerView.ViewHolder implements View.OnCli
         this.ingredientListItemClickListener = ingredientListItemClickListener;
 //            int backgroundColor = getAdapterPosition() % 2 == 0 ? R.color.background1 : R.color.background2;
 //            layoutRoot.setBackgroundColor(ContextCompat.getColor(layoutRoot.getContext(), backgroundColor));
-//        ingredientSummary.setText(ingredient.toString());
+        ingredientSummary.setText(ingredient.toString());
     }
 
     @Override

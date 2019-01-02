@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import static com.example.aldajo92.bakingapp.Constants.EXTRA_RECIPE;
 import static com.example.aldajo92.bakingapp.service.RecipeListWidgetService.RECIPES_KEY;
 
 public class BakingWidgetProvider extends AppWidgetProvider {
@@ -69,9 +70,9 @@ public class BakingWidgetProvider extends AppWidgetProvider {
         intent.putExtra(RECIPES_KEY, recipesJson);
         views.setRemoteAdapter(R.id.widget_list_view, intent);
 
-//        Intent appIntent = new Intent(context, DetailActivity.class);
-//        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        views.setPendingIntentTemplate(R.id.widget_list_view, appPendingIntent);
+        Intent appIntent = new Intent(context, DetailActivity.class);
+        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.widget_list_view, appPendingIntent);
 
         views.setEmptyView(R.id.widget_list_view, R.id.empty_view);
         return views;
