@@ -12,12 +12,16 @@ import com.example.aldajo92.bakingapp.db.RecipeEntry;
 import com.example.aldajo92.bakingapp.models.network.RecipeModel;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.aldajo92.bakingapp.Constants.NETWORK_ERROR;
+import static com.example.aldajo92.bakingapp.Constants.OTHER_ERROR;
 
 public class MainViewModel extends AndroidViewModel {
 
@@ -37,7 +41,7 @@ public class MainViewModel extends AndroidViewModel {
         database = RecipeDatabase.getInstance(this.getApplication());
     }
 
-    public void updateRecipeList(){
+    public void updateRecipeList() {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -60,10 +64,13 @@ public class MainViewModel extends AndroidViewModel {
 
                     @Override
                     public void onFailure(Call<List<RecipeModel>> call, Throwable t) {
-
+                        if (t instanceof IOException) {
+                            mainViewLister.showError(NETWORK_ERROR, t.getMessage());
+                        } else {
+                            mainViewLister.showError(OTHER_ERROR, t.getMessage());
+                        }
                     }
                 });
-
             }
         });
     }

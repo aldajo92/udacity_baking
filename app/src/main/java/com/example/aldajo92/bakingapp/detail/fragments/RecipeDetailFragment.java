@@ -1,6 +1,5 @@
 package com.example.aldajo92.bakingapp.detail.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,7 +23,6 @@ import butterknife.ButterKnife;
 
 import static com.example.aldajo92.bakingapp.Constants.RECIPE;
 
-@SuppressLint("ValidFragment")
 public class RecipeDetailFragment extends Fragment implements IngredientListItemClickListener, StepListItemClickListener {
 
     @BindView(R.id.recyclerview_ingredient)
