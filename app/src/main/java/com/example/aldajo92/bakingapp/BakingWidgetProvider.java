@@ -5,8 +5,11 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
+import com.example.aldajo92.bakingapp.db.RecipeDatabase;
+import com.example.aldajo92.bakingapp.db.RecipeEntry;
 import com.example.aldajo92.bakingapp.detail.DetailActivity;
 import com.example.aldajo92.bakingapp.models.WidgetType;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
@@ -16,31 +19,48 @@ import com.example.aldajo92.bakingapp.util.PreferenceUtil;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.aldajo92.bakingapp.Constants.EXTRA_RECIPE;
 import static com.example.aldajo92.bakingapp.service.RecipeListWidgetService.RECIPES_KEY;
 
 public class BakingWidgetProvider extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId, WidgetType widgetType, ArrayList<Recipe> recipeList) {
+    static void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
+                                final int appWidgetId, WidgetType widgetType) {
 
         RemoteViews views;
 
         if (widgetType == WidgetType.INGREDIENTS) {
             views = getIngredientListRemoteView(context);
+            appWidgetManager.updateAppWidget(appWidgetId, views);
         } else if (widgetType == WidgetType.RECIPES) {
-            views = getRecipeListRemoteView(context, recipeList);
+
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    List<RecipeEntry> otherRecipeList = RecipeDatabase.getInstance(context).getRecipeDao().getRecipes();
+                    ArrayList<Recipe> newRecipe = new ArrayList<>();
+                    for (RecipeEntry entry :
+                            otherRecipeList) {
+                        newRecipe.add(new Recipe(entry));
+                    }
+
+                    RemoteViews views = getRecipeListRemoteView(context, newRecipe);
+                    appWidgetManager.updateAppWidget(appWidgetId, views);
+                }
+            });
         } else {
             views = getEmptyRemoteView(context);
+            appWidgetManager.updateAppWidget(appWidgetId, views);
         }
 
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+
     }
 
-    public static void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, WidgetType widgetType, ArrayList<Recipe> recipeList) {
+    public static void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, WidgetType widgetType) {
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId, widgetType, recipeList);
+            updateAppWidget(context, appWidgetManager, appWidgetId, widgetType);
         }
     }
 
@@ -67,7 +87,9 @@ public class BakingWidgetProvider extends AppWidgetProvider {
 
         Intent intent = new Intent(context, RecipeListWidgetService.class);
         String recipesJson = new Gson().toJson(recipes);
-        intent.putExtra(RECIPES_KEY, recipesJson);
+        Bundle bundle = new Bundle();
+        bundle.putString(RECIPES_KEY, recipesJson);
+        intent.putExtras(bundle);
         views.setRemoteAdapter(R.id.widget_list_view, intent);
 
         Intent appIntent = new Intent(context, DetailActivity.class);

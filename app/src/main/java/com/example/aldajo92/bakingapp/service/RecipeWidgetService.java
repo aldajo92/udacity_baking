@@ -58,7 +58,7 @@ public class RecipeWidgetService extends LifecycleService {
                     } else {
                         widgetType = WidgetType.INGREDIENTS;
                     }
-                    updateWidget(recipeList);
+                    updateWidget();
                 }
             });
         }
@@ -66,9 +66,9 @@ public class RecipeWidgetService extends LifecycleService {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private void updateWidget(ArrayList<Recipe> recipeList) {
+    private void updateWidget() {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, BakingWidgetProvider.class));
-        BakingWidgetProvider.updateRecipeWidgets(this, appWidgetManager, appWidgetIds, widgetType, recipeList);
+        BakingWidgetProvider.updateRecipeWidgets(this, appWidgetManager, appWidgetIds, widgetType);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list_view);
     }
 

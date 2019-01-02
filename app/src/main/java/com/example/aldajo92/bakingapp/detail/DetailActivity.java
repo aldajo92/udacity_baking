@@ -64,9 +64,9 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
             initViewPager();
         }
 
-//        PreferenceUtil.setSelectedRecipeId(this, recipe.getRecipeId());
-//        PreferenceUtil.setSelectedRecipeName(this, recipe.getName());
-//        RecipeWidgetService.startActionUpdateWidgets(this);
+        PreferenceUtil.setSelectedRecipeId(this, recipe.getRecipeId());
+        PreferenceUtil.setSelectedRecipeName(this, recipe.getName());
+        RecipeWidgetService.startActionUpdateWidgets(this);
     }
 
     private void handleIntentExtras() {

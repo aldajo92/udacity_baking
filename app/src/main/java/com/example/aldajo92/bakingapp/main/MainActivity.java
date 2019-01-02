@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.setMainViewLister(this);
 
-        viewModel.updateRecipeList();
-
         initRecyclerView();
 
         if (savedInstanceState != null) {
@@ -55,6 +53,13 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
                 recipeAdapter.setItems(recipes);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PreferenceUtil.setSelectedRecipeId(this, PreferenceUtil.NO_ID);
+        viewModel.updateRecipeList();
     }
 
     private void initRecyclerView() {
@@ -77,10 +82,6 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
 
     @Override
     public void onRecipeItemClick(Recipe recipe) {
-        PreferenceUtil.setSelectedRecipeId(this, recipe.getRecipeId());
-        PreferenceUtil.setSelectedRecipeName(this, recipe.getName());
-        RecipeWidgetService.startActionUpdateWidgets(this);
-
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(EXTRA_RECIPE, recipe);
         startActivity(intent);

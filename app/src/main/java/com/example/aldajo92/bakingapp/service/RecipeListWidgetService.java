@@ -18,7 +18,8 @@ public class RecipeListWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         Type type = new TypeToken<ArrayList<Recipe>>(){}.getType();
-        ArrayList<Recipe> recipes = new Gson().fromJson(intent.getStringExtra(RECIPES_KEY), type);
+        ArrayList<Recipe> recipes = new Gson().fromJson(intent.getExtras().getString(RECIPES_KEY, ""), type);
+        String a = "";
         return new RecipeListRemoteViewsFactory(getApplicationContext(), recipes);
     }
 }
