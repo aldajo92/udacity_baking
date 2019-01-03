@@ -1,4 +1,4 @@
-package com.example.aldajo92.bakingapp;
+package com.example.aldajo92.bakingapp.main;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,10 +15,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.adapter.recipe.RecipeAdapter;
 import com.example.aldajo92.bakingapp.adapter.recipe.RecipeListItemClickListener;
-import com.example.aldajo92.bakingapp.main.MainViewLister;
-import com.example.aldajo92.bakingapp.main.MainViewModel;
+import com.example.aldajo92.bakingapp.detail.DetailActivity;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
 import com.example.aldajo92.bakingapp.service.recipe.RecipeWidgetService;
 import com.example.aldajo92.bakingapp.util.PreferenceUtil;

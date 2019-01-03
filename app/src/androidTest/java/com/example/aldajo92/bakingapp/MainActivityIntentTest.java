@@ -3,6 +3,9 @@ package com.example.aldajo92.bakingapp;
 import android.app.Activity;
 import android.app.Instrumentation;
 
+import com.example.aldajo92.bakingapp.detail.DetailActivity;
+import com.example.aldajo92.bakingapp.main.MainActivity;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -27,15 +30,15 @@ import static org.hamcrest.Matchers.not;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityIntentTest {
     @Rule
-    public IntentsTestRule<MainActivity> mActivityTestRule = new IntentsTestRule<>(MainActivity.class);
+    public IntentsTestRule<MainActivity> activityTestRule = new IntentsTestRule<>(MainActivity.class);
 
-    private IdlingResource mIdlingResource;
+    private IdlingResource idlingResource;
 
     @Before
     public void registerIdlingResource() throws InterruptedException {
         Thread.sleep(1000);
-        mIdlingResource = mActivityTestRule.getActivity().getIdlingResource();
-        IdlingRegistry.getInstance().register(mIdlingResource);
+        idlingResource = activityTestRule.getActivity().getIdlingResource();
+        IdlingRegistry.getInstance().register(idlingResource);
     }
 
     @Before
@@ -54,8 +57,8 @@ public class MainActivityIntentTest {
 
     @After
     public void unregisterIdlingResource() {
-        if (mIdlingResource != null) {
-            IdlingRegistry.getInstance().unregister(mIdlingResource);
+        if (idlingResource != null) {
+            IdlingRegistry.getInstance().unregister(idlingResource);
         }
     }
 }

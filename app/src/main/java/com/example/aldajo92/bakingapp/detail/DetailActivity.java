@@ -1,4 +1,4 @@
-package com.example.aldajo92.bakingapp;
+package com.example.aldajo92.bakingapp.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.adapter.step.StepListItemClickListener;
 import com.example.aldajo92.bakingapp.detail.StepActivity;
 import com.example.aldajo92.bakingapp.detail.fragments.RecipeDetailFragment;
-import com.example.aldajo92.bakingapp.detail.fragments.RecipeStepFragment;
+import com.example.aldajo92.bakingapp.detail.fragments.StepFragment;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
 import com.example.aldajo92.bakingapp.service.recipe.RecipeWidgetService;
 import com.example.aldajo92.bakingapp.util.PreferenceUtil;
@@ -135,11 +136,10 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
                 .commit();
     }
 
-    private RecipeStepFragment createRecipeStepFragment(int position) {
-        RecipeStepFragment recipeStepFragment = new RecipeStepFragment();
-        recipeStepFragment.setListIndex(position);
-        recipeStepFragment.setStep(recipe.getSteps().get(position));
-        return recipeStepFragment;
+    private StepFragment createRecipeStepFragment(int position) {
+        StepFragment stepFragment = StepFragment.newInstance(recipe.getSteps().get(position));
+        stepFragment.setListIndex(position);
+        return stepFragment;
     }
 
     @Override
@@ -166,6 +166,6 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
 
     @Override
     public void onPageScrollStateChanged(int position) {
-        ((RecipeStepFragment) pagerAdapter.getItem(position)).stopPlayer();
+        ((StepFragment) pagerAdapter.getItem(position)).stopPlayer();
     }
 }

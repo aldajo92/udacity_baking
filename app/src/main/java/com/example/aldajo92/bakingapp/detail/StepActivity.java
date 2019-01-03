@@ -13,11 +13,13 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.aldajo92.bakingapp.R;
-import com.example.aldajo92.bakingapp.detail.fragments.RecipeStepFragment;
+import com.example.aldajo92.bakingapp.detail.fragments.StepFragment;
 import com.example.aldajo92.bakingapp.models.ui.Step;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +32,9 @@ public class StepActivity extends AppCompatActivity {
 
     @BindView(R.id.view_pager_content_view)
     ViewPager viewPagerSteps;
+
+    @BindView(R.id.recipe_step_tablayout)
+    TabLayout tabLayout;
 
     private int currentStep;
     private List<Step> steps;
@@ -47,7 +52,7 @@ public class StepActivity extends AppCompatActivity {
 
         handleIntentExtras();
         handleSavedInstanceState(savedInstanceState);
-        initViewPager();
+        setupPager();
 
         setupActionBar();
     }
@@ -88,7 +93,7 @@ public class StepActivity extends AppCompatActivity {
         }
     }
 
-    private void initViewPager() {
+    private void setupPager() {
         pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -99,9 +104,15 @@ public class StepActivity extends AppCompatActivity {
             public int getCount() {
                 return steps.size();
             }
+
+            @Override
+            public CharSequence getPageTitle(int position){
+                return steps.get(position).getShortDescription();
+            }
         };
         viewPagerSteps.setAdapter(pagerAdapter);
         viewPagerSteps.setCurrentItem(currentStep, false);
+        tabLayout.setupWithViewPager(viewPagerSteps);
     }
 
     private void setupActionBar() {
@@ -130,10 +141,9 @@ public class StepActivity extends AppCompatActivity {
         outState.putString(EXTRA_RECIPE_NAME, recipeName);
     }
 
-    private RecipeStepFragment createRecipeStepFragment(int index) {
-        RecipeStepFragment recipeStepFragment = new RecipeStepFragment();
-        recipeStepFragment.setListIndex(index);
-        recipeStepFragment.setStep(steps.get(index));
-        return recipeStepFragment;
+    private StepFragment createRecipeStepFragment(int index) {
+        StepFragment stepFragment = StepFragment.newInstance(steps.get(index));
+        stepFragment.setListIndex(index);
+        return stepFragment;
     }
 }

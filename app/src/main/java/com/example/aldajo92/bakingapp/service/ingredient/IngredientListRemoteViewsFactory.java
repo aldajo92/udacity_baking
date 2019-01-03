@@ -29,8 +29,7 @@ public class IngredientListRemoteViewsFactory implements RemoteViewsService.Remo
 
     @Override
     public void onDataSetChanged() {
-        int selectedRecipeId = PreferenceUtil.getSelectedRecipeId(mContext);
-//        recipe = DBUtil.getRecipe(mContext.getContentResolver(), selectedRecipeId);
+
     }
 
     @Override
@@ -51,13 +50,9 @@ public class IngredientListRemoteViewsFactory implements RemoteViewsService.Remo
         RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.ingredient_list_item);
         views.setTextViewText(R.id.textview_ingredient_summary, ingredient.toString());
 
-        // Fill in the onClick PendingIntent Template using the specific plant Id for each item individually
-        //Bundle extras = new Bundle();
-        //extras.putParcelable(RecipeActivity.EXTRA_RECIPE, recipe);
         Intent fillInIntent = new Intent();
         fillInIntent.putExtra(EXTRA_RECIPE, recipe);
-        //fillInIntent.putExtras(extras);
-        views.setOnClickFillInIntent(R.id.textview_ingredient_summary, fillInIntent);
+        views.setOnClickFillInIntent(R.id.layout_root, fillInIntent);
 
         return views;
     }

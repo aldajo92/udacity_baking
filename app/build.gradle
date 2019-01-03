@@ -27,7 +27,6 @@ ext {
     constraintLayoutLibVersion = '1.1.2'
     junitLibVersion = '4.12'
     liveComponentsVersion = '2.0.0-beta01'
-
     piccasoLibVersion = '2.71828'
 
     butterKnifeVersion = '9.0.0-rc3'
@@ -36,6 +35,8 @@ ext {
     okhttpVersion = '3.10.0'
     gsonVersion = '2.8.2'
     exoplayer_version = 'r2.2.0'
+
+    espresso_version = '3.1.0'
 }
 
 dependencies {
@@ -44,6 +45,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$supportLibVersion"
     implementation "androidx.cardview:cardview:$supportLibVersion"
     implementation "androidx.preference:preference:$supportLibVersion"
+    implementation "androidx.media:media:$supportLibVersion"
+    implementation "com.google.android.material:material:$supportLibVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutLibVersion"
 
     implementation "androidx.room:room-runtime:$liveComponentsVersion"
@@ -63,14 +66,14 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
 
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
+    implementation "com.google.android.exoplayer:extension-okhttp:$exoplayer_version"
 
-    androidTestImplementation 'androidx.test.ext:junit:1.0.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    androidTestImplementation 'androidx.test:runner:1.0.0'
-    androidTestImplementation 'androidx.test:rules:1.0.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
-    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
-
-    implementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
+    androidTestImplementation "androidx.test.ext:junit:$supportLibVersion"
+    androidTestImplementation "androidx.test:runner:$supportLibVersion"
+    androidTestImplementation "androidx.test:rules:$supportLibVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espresso_version"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
 }

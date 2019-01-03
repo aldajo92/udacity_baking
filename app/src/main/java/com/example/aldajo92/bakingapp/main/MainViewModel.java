@@ -4,7 +4,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.annotation.NonNull;
 
-import com.example.aldajo92.bakingapp.AppExecutors;
+import com.example.aldajo92.bakingapp.db.AppExecutors;
 import com.example.aldajo92.bakingapp.api.BakingAPI;
 import com.example.aldajo92.bakingapp.api.BakingService;
 import com.example.aldajo92.bakingapp.db.RecipeDatabase;

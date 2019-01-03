@@ -1,4 +1,4 @@
-package com.example.aldajo92.bakingapp;
+package com.example.aldajo92.bakingapp.db;
 
 import android.os.Handler;
 import android.os.Looper;

@@ -2,6 +2,8 @@ package com.example.aldajo92.bakingapp;
 
 import android.widget.TextView;
 
+import com.example.aldajo92.bakingapp.main.MainActivity;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -36,15 +38,15 @@ public class MainActivityScreenTest {
     private static final String SAMPLE_INGREDIENT = "2.0 CUP Graham Cracker crumbs";
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule
+    public ActivityTestRule<MainActivity> activityTestRule
             = new ActivityTestRule<>(MainActivity.class);
 
-    private IdlingResource mIdlingResource;
+    private IdlingResource idlingResource;
 
     @Before
     public void registerIdlingResource() {
-        mIdlingResource = mActivityTestRule.getActivity().getIdlingResource();
-        IdlingRegistry.getInstance().register(mIdlingResource);
+        idlingResource = activityTestRule.getActivity().getIdlingResource();
+        IdlingRegistry.getInstance().register(idlingResource);
     }
 
     @Test
@@ -79,8 +81,8 @@ public class MainActivityScreenTest {
 
     @After
     public void unregisterIdlingResource() {
-        if (mIdlingResource != null) {
-            IdlingRegistry.getInstance().unregister(mIdlingResource);
+        if (idlingResource != null) {
+            IdlingRegistry.getInstance().unregister(idlingResource);
         }
     }
 }
