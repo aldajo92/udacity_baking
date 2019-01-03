@@ -31,6 +31,7 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -95,7 +96,7 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_step, container,false);
         unbinder = ButterKnife.bind(this, view);
@@ -140,7 +141,6 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
                 position = savedInstanceState.getLong(EXTRA_EXO_PLAYER_POSITION);
             }
 
-            setViewVisibility(playerView, true);
             initializeMediaSession();
             initializePlayer(Uri.parse(videoUrl));
 
@@ -334,13 +334,5 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
     @Override
     public void onPositionDiscontinuity() {
 
-    }
-
-    private void setViewVisibility(View view, boolean isShown){
-        if (isShown){
-            view.setVisibility(View.VISIBLE);
-        }else{
-            view.setVisibility(View.INVISIBLE);
-        }
     }
 }

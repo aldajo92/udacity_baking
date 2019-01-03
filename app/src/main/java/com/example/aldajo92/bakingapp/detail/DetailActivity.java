@@ -14,8 +14,7 @@ import android.widget.FrameLayout;
 
 import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.adapter.step.StepListItemClickListener;
-import com.example.aldajo92.bakingapp.detail.StepActivity;
-import com.example.aldajo92.bakingapp.detail.fragments.RecipeDetailFragment;
+import com.example.aldajo92.bakingapp.detail.fragments.DetailFragment;
 import com.example.aldajo92.bakingapp.detail.fragments.StepFragment;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
 import com.example.aldajo92.bakingapp.service.recipe.RecipeWidgetService;
@@ -127,12 +126,12 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
     }
 
     private void replaceRecipeDetailFragment(Recipe recipe) {
-        RecipeDetailFragment recipeDetailFragment = RecipeDetailFragment.getInstance(this);
-        recipeDetailFragment.setRecipe(recipe);
+        DetailFragment detailFragment = DetailFragment.getInstance(this);
+        detailFragment.setRecipe(recipe);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.frame_container, recipeDetailFragment)
+                .replace(R.id.frame_container, detailFragment)
                 .commit();
     }
 

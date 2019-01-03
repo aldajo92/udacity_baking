@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 
 public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    @BindView(R.id.imageview_receipt)
+    @BindView(R.id.image_view_receipt)
     AppCompatImageView image;
 
     @BindView(R.id.textview_recipe_name)
