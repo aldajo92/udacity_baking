@@ -18,7 +18,6 @@ gen/
 out/
 
 # Gradle files
-.gradle/
 build/
 
 # Local configuration file (sdk path, etc)
@@ -81,9 +80,6 @@ gen-external-apklibs
 # Java class files
 
 # Generated files
-
-# Gradle files
-.gradle
 
 # Signing files
 .signing/
