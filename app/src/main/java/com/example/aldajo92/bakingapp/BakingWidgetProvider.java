@@ -39,32 +39,26 @@ public class BakingWidgetProvider extends AppWidgetProvider {
 
         if (widgetType == WidgetType.INGREDIENTS) {
 
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    int recipeSelected = PreferenceUtil.getSelectedRecipeId(context);
-                    RecipeEntry recipeEntry = recipeDao.getRecipeById(recipeSelected);
-                    Recipe recipe = new Recipe(recipeEntry);
-                    RemoteViews views = getIngredientListRemoteView(context, recipe);
-                    appWidgetManager.updateAppWidget(appWidgetId, views);
-                }
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                int recipeSelected = PreferenceUtil.getSelectedRecipeId(context);
+                RecipeEntry recipeEntry = recipeDao.getRecipeById(recipeSelected);
+                Recipe recipe = new Recipe(recipeEntry);
+                RemoteViews views1 = getIngredientListRemoteView(context, recipe);
+                appWidgetManager.updateAppWidget(appWidgetId, views1);
             });
 
         } else if (widgetType == WidgetType.RECIPES) {
 
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    List<RecipeEntry> otherRecipeList = recipeDao.getRecipes();
-                    ArrayList<Recipe> newRecipe = new ArrayList<>();
-                    for (RecipeEntry entry :
-                            otherRecipeList) {
-                        newRecipe.add(new Recipe(entry));
-                    }
-
-                    RemoteViews views = getRecipeListRemoteView(context, newRecipe);
-                    appWidgetManager.updateAppWidget(appWidgetId, views);
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                List<RecipeEntry> otherRecipeList = recipeDao.getRecipes();
+                ArrayList<Recipe> newRecipe = new ArrayList<>();
+                for (RecipeEntry entry :
+                        otherRecipeList) {
+                    newRecipe.add(new Recipe(entry));
                 }
+
+                RemoteViews views12 = getRecipeListRemoteView(context, newRecipe);
+                appWidgetManager.updateAppWidget(appWidgetId, views12);
             });
         } else {
             views = getEmptyRemoteView(context);
@@ -138,12 +132,12 @@ public class BakingWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
+
     }
 
     @Override
     public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
+
     }
 }
 
