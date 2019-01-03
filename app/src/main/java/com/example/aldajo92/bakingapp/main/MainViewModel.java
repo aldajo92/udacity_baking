@@ -1,8 +1,8 @@
 package com.example.aldajo92.bakingapp.main;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.annotation.NonNull;
 
 import com.example.aldajo92.bakingapp.AppExecutors;
 import com.example.aldajo92.bakingapp.api.BakingAPI;

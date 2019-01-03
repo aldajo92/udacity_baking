@@ -1,28 +1,33 @@
-package com.example.aldajo92.bakingapp.main;
+package com.example.aldajo92.bakingapp;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.adapter.recipe.RecipeAdapter;
 import com.example.aldajo92.bakingapp.adapter.recipe.RecipeListItemClickListener;
-import com.example.aldajo92.bakingapp.detail.DetailActivity;
+import com.example.aldajo92.bakingapp.main.MainViewLister;
+import com.example.aldajo92.bakingapp.main.MainViewModel;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
 import com.example.aldajo92.bakingapp.service.recipe.RecipeWidgetService;
 import com.example.aldajo92.bakingapp.util.PreferenceUtil;
+import com.example.aldajo92.bakingapp.util.SimpleIdlingResource;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.test.espresso.IdlingResource;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -47,6 +52,18 @@ public class MainActivity extends AppCompatActivity implements RecipeListItemCli
     private RecipeAdapter recipeAdapter;
 
     private MainViewModel viewModel;
+
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

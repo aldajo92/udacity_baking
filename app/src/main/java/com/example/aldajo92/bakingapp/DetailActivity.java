@@ -1,19 +1,19 @@
-package com.example.aldajo92.bakingapp.detail;
+package com.example.aldajo92.bakingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.example.aldajo92.bakingapp.R;
 import com.example.aldajo92.bakingapp.adapter.step.StepListItemClickListener;
+import com.example.aldajo92.bakingapp.detail.StepActivity;
 import com.example.aldajo92.bakingapp.detail.fragments.RecipeDetailFragment;
 import com.example.aldajo92.bakingapp.detail.fragments.RecipeStepFragment;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
@@ -33,7 +33,7 @@ import static com.example.aldajo92.bakingapp.Constants.EXTRA_STEP_LIST;
 public class DetailActivity extends AppCompatActivity implements StepListItemClickListener, ViewPager.OnPageChangeListener {
 
     @Nullable
-    @BindView(R.id.viewPager_step_container)
+    @BindView(R.id.view_pager_content_view)
     ViewPager viewPagerSteps;
 
     @BindView(R.id.frame_container)

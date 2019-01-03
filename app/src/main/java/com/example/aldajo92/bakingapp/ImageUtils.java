@@ -1,9 +1,8 @@
 package com.example.aldajo92.bakingapp;
 
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.ImageView;
 

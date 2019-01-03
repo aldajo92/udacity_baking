@@ -1,6 +1,6 @@
 package com.example.aldajo92.bakingapp.db;
 
-import android.arch.persistence.room.TypeConverter;
+import androidx.room.TypeConverter;
 
 import com.example.aldajo92.bakingapp.models.network.IngredientModel;
 import com.example.aldajo92.bakingapp.models.network.StepModel;

@@ -2,8 +2,8 @@ package com.example.aldajo92.bakingapp.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.PreferenceManager;
+import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 
 public class PreferenceUtil {
     private static final String RECIPE_ID = "recipe_id";

@@ -11,8 +11,6 @@ import android.widget.RemoteViews;
 import com.example.aldajo92.bakingapp.db.RecipeDao;
 import com.example.aldajo92.bakingapp.db.RecipeDatabase;
 import com.example.aldajo92.bakingapp.db.RecipeEntry;
-import com.example.aldajo92.bakingapp.detail.DetailActivity;
-import com.example.aldajo92.bakingapp.main.MainActivity;
 import com.example.aldajo92.bakingapp.models.WidgetType;
 import com.example.aldajo92.bakingapp.models.ui.Recipe;
 import com.example.aldajo92.bakingapp.service.ingredient.IngredientListWidgetService;

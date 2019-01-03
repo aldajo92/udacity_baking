@@ -1,9 +1,8 @@
 package com.example.aldajo92.bakingapp.service.recipe;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
+import androidx.lifecycle.AndroidViewModel;
 
-import com.example.aldajo92.bakingapp.AppExecutors;
 import com.example.aldajo92.bakingapp.db.RecipeDatabase;
 
 class RecipeWidgetViewModel extends AndroidViewModel {

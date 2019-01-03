@@ -8,7 +8,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -16,17 +16,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 ext {
-    supportLibVersion = '28.0.0'
-    constraintLayoutLibVersion = '1.1.3'
+    supportLibVersion = '1.0.0'
+    constraintLayoutLibVersion = '1.1.2'
     junitLibVersion = '4.12'
-    liveComponentsVersion = '1.1.1'
+    liveComponentsVersion = '2.0.0-beta01'
 
     piccasoLibVersion = '2.71828'
 
-    butterKnifeVersion = '8.8.1'
+    butterKnifeVersion = '9.0.0-rc3'
 
     retrofitVersion = '2.4.0'
     okhttpVersion = '3.10.0'
@@ -36,18 +40,17 @@ ext {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
-    implementation "com.android.support:cardview-v7:$supportLibVersion"
-    implementation "com.android.support:preference-v7:$supportLibVersion"
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutLibVersion"
-    testImplementation "junit:junit:$junitLibVersion"
+    implementation "androidx.appcompat:appcompat:$supportLibVersion"
+    implementation "androidx.recyclerview:recyclerview:$supportLibVersion"
+    implementation "androidx.cardview:cardview:$supportLibVersion"
+    implementation "androidx.preference:preference:$supportLibVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutLibVersion"
 
-    implementation "android.arch.persistence.room:runtime:$liveComponentsVersion"
-    annotationProcessor "android.arch.persistence.room:compiler:$liveComponentsVersion"
+    implementation "androidx.room:room-runtime:$liveComponentsVersion"
+    annotationProcessor "androidx.room:room-compiler:$liveComponentsVersion"
 
-    implementation "android.arch.lifecycle:extensions:$liveComponentsVersion"
-    annotationProcessor "android.arch.lifecycle:compiler:$liveComponentsVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$liveComponentsVersion"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$liveComponentsVersion"
 
     implementation "com.squareup.picasso:picasso:$piccasoLibVersion"
 
@@ -60,4 +63,14 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
 
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
+
+    androidTestImplementation 'androidx.test.ext:junit:1.0.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test:runner:1.0.0'
+    androidTestImplementation 'androidx.test:rules:1.0.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
+
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
 }
