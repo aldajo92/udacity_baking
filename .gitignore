@@ -174,8 +174,6 @@ fabric.properties
 
 ### AndroidStudio Patch ###
 
-!/gradle/wrapper/gradle-wrapper.jar
-
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -233,9 +231,6 @@ cmake-build-*/
 
 # Sonarlint plugin
 .idea/sonarlint
-
-gradle.properties
-/gradle
 
 
 # End of https://www.gitignore.io/api/android,intellij,androidstudio
