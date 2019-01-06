@@ -25,10 +25,10 @@ import static com.projects.aldajo92.bakingapp.Constants.RECIPE;
 
 public class DetailFragment extends Fragment implements IngredientListItemClickListener, StepListItemClickListener {
 
-    @BindView(R.id.recyclerview_ingredient)
+    @BindView(R.id.recyclerView_ingredient)
     RecyclerView ingredientRecyclerView;
 
-    @BindView(R.id.recyclerview_step)
+    @BindView(R.id.recyclerView_step)
     RecyclerView stepRecyclerView;
 
     private IngredientAdapter ingredientAdapter;

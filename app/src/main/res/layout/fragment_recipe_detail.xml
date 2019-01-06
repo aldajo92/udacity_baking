@@ -24,7 +24,7 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_ingredient"
+                android:id="@+id/recyclerView_ingredient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -39,7 +39,7 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_step"
+                android:id="@+id/recyclerView_step"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

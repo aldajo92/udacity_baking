@@ -46,9 +46,9 @@ public class MainActivityScreenTest {
     public void clickRecipeRecyclerViewItem_DetailActivity() {
         onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
-        onView(ViewMatchers.withId(R.id.recyclerview_ingredient)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.recyclerView_ingredient)).check(matches(isDisplayed()));
 
-        onView(ViewMatchers.withId(R.id.recyclerview_step)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(ViewMatchers.withId(R.id.recyclerView_step)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         onView(ViewMatchers.withId(R.id.tabLayout_step)).check(matches(isDisplayed()));
     }
@@ -56,7 +56,7 @@ public class MainActivityScreenTest {
     @Test
     public void clickStepRecyclerViewItem_SwipeRecipeSteps() {
         onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.recyclerview_step)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.recyclerView_step)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.view_pager_content_view)).perform(swipeLeft());
     }
 

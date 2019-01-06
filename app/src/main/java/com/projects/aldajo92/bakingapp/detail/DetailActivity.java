@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.google.android.material.tabs.TabLayout;
 import com.projects.aldajo92.bakingapp.R;
 import com.projects.aldajo92.bakingapp.adapter.step.StepListItemClickListener;
 import com.projects.aldajo92.bakingapp.detail.fragments.DetailFragment;
@@ -35,6 +36,10 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
     @Nullable
     @BindView(R.id.view_pager_content_view)
     ViewPager viewPagerSteps;
+
+    @Nullable
+    @BindView(R.id.tabLayout_step)
+    TabLayout tabLayout;
 
     @BindView(R.id.frame_container)
     FrameLayout frameContainer;
@@ -119,10 +124,15 @@ public class DetailActivity extends AppCompatActivity implements StepListItemCli
             public int getCount() {
                 return recipe.getSteps().size();
             }
+
+            @Override
+            public CharSequence getPageTitle(int position){
+                return recipe.getSteps().get(position).getShortDescription();
+            }
         };
         viewPagerSteps.setAdapter(pagerAdapter);
         viewPagerSteps.addOnPageChangeListener(this);
-
+        tabLayout.setupWithViewPager(viewPagerSteps);
     }
 
     private void replaceRecipeDetailFragment(Recipe recipe) {
