@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.aldajo92.bakingapp">
+    package="com.projects.aldajo92.bakingapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".main.MainActivity">
+        <activity android:name="com.projects.aldajo92.bakingapp.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -23,17 +23,17 @@
         </activity>
 
         <activity
-            android:name=".detail.DetailActivity"
+            android:name="com.projects.aldajo92.bakingapp.detail.DetailActivity"
             android:launchMode="singleTask"
-            android:parentActivityName=".main.MainActivity">
+            android:parentActivityName="com.projects.aldajo92.bakingapp.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="com.projects.aldajo92.bakingapp.main.MainActivity" />
         </activity>
 
-        <activity android:name=".detail.StepActivity" />
+        <activity android:name="com.projects.aldajo92.bakingapp.detail.StepActivity" />
 
-        <receiver android:name=".BakingWidgetProvider">
+        <receiver android:name="com.projects.aldajo92.bakingapp.BakingWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -43,14 +43,14 @@
                 android:resource="@xml/baking_widget_provider_info" />
         </receiver>
 
-        <service android:name=".service.recipe.RecipeWidgetService" />
+        <service android:name="com.projects.aldajo92.bakingapp.service.recipe.RecipeWidgetService" />
 
         <service
-            android:name=".service.recipe.RecipeListWidgetService"
+            android:name="com.projects.aldajo92.bakingapp.service.recipe.RecipeListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <service
-            android:name=".service.ingredient.IngredientListWidgetService"
+            android:name="com.projects.aldajo92.bakingapp.service.ingredient.IngredientListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
     </application>

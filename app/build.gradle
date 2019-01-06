@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.aldajo92.bakingapp"
+        applicationId "com.projects.aldajo92.bakingapp"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
@@ -26,33 +26,39 @@ ext {
     supportLibVersion = '1.0.0'
     constraintLayoutLibVersion = '1.1.2'
     junitLibVersion = '4.12'
-    liveComponentsVersion = '2.0.0-beta01'
+    liveComponentsVersion = '2.0.0'
     piccasoLibVersion = '2.71828'
 
-    butterKnifeVersion = '9.0.0-rc3'
+    butterKnifeVersion = '9.0.0'
 
     retrofitVersion = '2.4.0'
     okhttpVersion = '3.10.0'
     gsonVersion = '2.8.2'
-    exoplayer_version = 'r2.2.0'
+    exoplayer_version = '2.6.0'
 
     espresso_version = '3.1.0'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutLibVersion"
+
     implementation "androidx.appcompat:appcompat:$supportLibVersion"
     implementation "androidx.recyclerview:recyclerview:$supportLibVersion"
     implementation "androidx.cardview:cardview:$supportLibVersion"
     implementation "androidx.preference:preference:$supportLibVersion"
     implementation "androidx.media:media:$supportLibVersion"
     implementation "com.google.android.material:material:$supportLibVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutLibVersion"
+
+    androidTestImplementation "androidx.test:core:$supportLibVersion"
+    androidTestImplementation "androidx.test.ext:junit:$supportLibVersion"
+    androidTestImplementation "androidx.test:runner:$supportLibVersion"
+    androidTestImplementation "androidx.test:rules:$supportLibVersion"
 
     implementation "androidx.room:room-runtime:$liveComponentsVersion"
-    annotationProcessor "androidx.room:room-compiler:$liveComponentsVersion"
-
     implementation "androidx.lifecycle:lifecycle-extensions:$liveComponentsVersion"
+    annotationProcessor "androidx.room:room-compiler:$liveComponentsVersion"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$liveComponentsVersion"
 
     implementation "com.squareup.picasso:picasso:$piccasoLibVersion"
@@ -61,16 +67,13 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.google.code.gson:gson:$gsonVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
 
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
     implementation "com.google.android.exoplayer:extension-okhttp:$exoplayer_version"
 
-    androidTestImplementation "androidx.test.ext:junit:$supportLibVersion"
-    androidTestImplementation "androidx.test:runner:$supportLibVersion"
-    androidTestImplementation "androidx.test:rules:$supportLibVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"

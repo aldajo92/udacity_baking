@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/recipe_step_tablayout"
+        android:id="@+id/tabLayout_step"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabTextColor="@color/black"
